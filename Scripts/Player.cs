@@ -16,6 +16,8 @@ public partial class Player : CharacterBody2D
 	//CanvasLayer for the screen that appears when you open the inventory.
 	[Export]
 	public CanvasLayer inventory_ui;
+	//Global Reference
+	public Global glbl;
 	/*
 	Summary:
 	Called when the node enters the scene tree for the first time. 
@@ -23,8 +25,9 @@ public partial class Player : CharacterBody2D
 	*/
 	public override void _Ready()
 	{
+		glbl = GetNode<Global>("/root/Global");
 		char_anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		Global.Set_Player_Reference(this);
+		glbl.SetPlayerReference(this);
 		interact_ui = GetNode<CanvasLayer>("InteractUI");
 		inventory_ui = GetNode<CanvasLayer>("InventoryUI");
 	}

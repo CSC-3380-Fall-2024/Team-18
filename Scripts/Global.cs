@@ -5,20 +5,32 @@ using System.Collections.Generic;
 /*
 Summary:
 This class is responsible for keeping track of important data that should always be loaded, such as the player's inventory and characterbody2d.
+This is a SINGLETON. In order to reference anything in this class, please do the following:
+Create a variable of type Global (I use glbl as the variable name)
+In _Ready, add "glbl = GetNode<Global>("/root/Global");"
+This will create a reference to the already loaded Global Script.
 */
 public partial class Global : Node
 {
 	// Inventory array, stores all items as well as their data (quantities, types, etc.)
-	static dynamic[] inventory = new dynamic[30];
-	//Signal variable that fires when the inventory is updated.
-	[Signal]
-    public delegate void InventoryUpdatedEventHandler();
+	public dynamic[] inventory = new dynamic[30];
+	//Signal library; uses the CustomSignals script.
+    public CustomSignals custom_signals;
 	//The player. Starts as null, and refers to the player via method when the game starts to run.
-	 public static CharacterBody2D player_node = null;
+	 public CharacterBody2D player_node = null;
+
+	 //Loads the 'inventory_slot' scene, and stores it here.
+	 public PackedScene inventory_slot_scene;
+
+	//Global Singleton reference.
+	 public Global glbl;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		inventory_slot_scene = GD.Load<PackedScene>("res://Scenes/inventory_slot.tscn");
+		custom_signals = GetNode<CustomSignals>("/root/CustomSignals");
+		glbl = GetNode<Global>("/root/Global");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,9 +47,7 @@ public partial class Global : Node
 	Returns:
 	Returns true if it an add the item, returns false otherwise.
 	*/
-	public static bool Add_Item( Dictionary<string, dynamic> item){
-		//Create a new GodotObject (lets it play nice with static variables.)
-		GodotObject gdtobj = new();
+	public bool AddItem( Dictionary<string, dynamic> item){
 
 		for(int i = 0; i < inventory.Length; i++) 
 		{
@@ -46,22 +56,49 @@ public partial class Global : Node
 			{
 				//adds the amount of items to the quantity key in the item's dictionary, sends a signal and returns true.
 				inventory[i]["quantity"] += item["quantity"];
-				gdtobj.EmitSignal(SignalName.InventoryUpdated);
-				GD.Print("quanity updated");
+				glbl.custom_signals.EmitSignal(nameof(CustomSignals.InventoryUpdated));
 				return true;
 				//checks for an empty spot in the inventory
 			} else if (inventory[i] == null)
 			{
 				//Adds the item to the inventory at index i, emits a signal and returns true.
 				inventory[i] = item;
-				gdtobj.EmitSignal(SignalName.InventoryUpdated);
-				GD.Print("new item added");
+				glbl.custom_signals.EmitSignal(nameof(CustomSignals.InventoryUpdated));
 				return true;
 			}
 		}
 		//if no spots are available, returns false.
 		return false;
 	}
+	/*
+	Summary:
+	Called from InventorySLot -> "OnDiscardButtonPressed." removes 1 from the quantity of the item selected, and removes that item from the inventory if out of items.
+
+	Params:
+	item_type: the type of the item being removed
+	item_effect: the effect of the item being removed.
+	*/
+	public bool RemoveItem(dynamic item_type, dynamic item_effect)
+	{
+		for(int i = 0; i < inventory.Length; i++)
+		{
+			if ((inventory[i] != null) && (inventory[i]["item_type"] == item_type) && (inventory[i]["item_effect"] == item_effect))
+			{
+				//subtracts 1 to the quantity key in the item's dictionary, sends a signal and returns true.
+				inventory[i]["quantity"]-= 1;
+				//if there are no more items, removes it from inventory entirely.
+				if(inventory[i]["quantity"] == 0)
+				{
+					inventory[i] = null;
+					InventoryShift(glbl.inventory, i);
+				}
+				glbl.custom_signals.EmitSignal(nameof(CustomSignals.InventoryUpdated));
+				return true;
+			}
+		}
+		return false;
+	}
+
 	
 	/* 
 	Summary:
@@ -69,9 +106,29 @@ public partial class Global : Node
 	Params:
 	CharacterBody2D player: The player character. Cannot be null or reference anything other than the player character.
 	*/
-		public static void Set_Player_Reference(CharacterBody2D player)
+		public void SetPlayerReference(CharacterBody2D player)
 		{
 			player_node = player;
+		}
+	/*
+	Summary:
+	Moves items in inventory in response to an open position.
+
+	Params: 
+	inventory: the inventory of the player
+	index: the spot at which an opening was created.
+	*/
+		private void InventoryShift(dynamic[] inventory, int index)
+		{
+			//starts at the next item in the list.
+			int i = index + 1;
+			while(inventory[i] != null)
+			{
+				inventory[i-1] = inventory[i];
+				i++;
+			}
+			//does one more iteration after to move the final item.
+			inventory[i-1] = inventory[i];
 		}
 }
 

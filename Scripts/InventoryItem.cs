@@ -26,7 +26,8 @@ public partial class InventoryItem : Node2D
 
 	//Links to the scene for this script.
 	string scene_path = "res://Scenes/Inventory_Item:tscn";
-
+	//Global Reference
+	public Global glbl;
 	bool player_in_range = false;
 	/*
 	Summary:
@@ -36,6 +37,7 @@ public partial class InventoryItem : Node2D
 	public override void _Ready()
 	{
 		icon_sprite = GetNode<Sprite2D>("Sprite2D");
+		glbl = GetNode<Global>("/root/Global");
 	
 			if (!Engine.IsEditorHint())
 			{
@@ -59,15 +61,16 @@ public partial class InventoryItem : Node2D
 		//Checks if the player is close enough and the button to pick up an item is pressed.	
 		if (player_in_range && Input.IsActionJustPressed("ui_add"))
 		{
-			Pickup_Item();
+			PickupItem();
 		}
 	}
 	/*
 	Summary:
 	Creates a new item dictionary to store in the inventory. Properties are gathered from the exported variables in Godot, as well as the scen path.
 	Calls the Add_Item function in Global to add the item to the inventory.
+	Deletes the item.
 	*/
-	public void Pickup_Item()
+	public void PickupItem()
 	{
 		Dictionary<string, dynamic> item = new Dictionary<string, dynamic>();
 		item.Add("quantity", 1);
@@ -77,10 +80,13 @@ public partial class InventoryItem : Node2D
 		item.Add("item_effect", item_effect);
 		item.Add("scene_path", scene_path);
 		
-		GD.Print("past dict");
-		if(Global.player_node != null){
-			bool success = Global.Add_Item(item);
-			GD.Print("ran");
+		if(glbl.player_node != null){
+			bool success = glbl.AddItem(item);
+			if(success)
+			{
+				//Item is deleted from scene here.
+				QueueFree();
+			}
 		}
 	}
 	/*
@@ -91,14 +97,11 @@ public partial class InventoryItem : Node2D
 	*/
 	public void OnArea2DBodyEntered(Player body)
 	{
-		GD.Print("ran");
 		//checks for the player specifically
 		if(body.IsInGroup("Player"))
 		{
-			GD.Print("in group player");
 			player_in_range = true;
 			body.interact_ui.Visible = true;
-			GD.Print(body.interact_ui.Visible);
 		}
 	}
 	/*
@@ -113,7 +116,6 @@ public partial class InventoryItem : Node2D
 		{
 			player_in_range = false;
 			body.interact_ui.Visible = false;
-			GD.Print(body.interact_ui.Visible);
 		}
 	}
 }
