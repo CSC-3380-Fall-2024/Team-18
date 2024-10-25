@@ -172,7 +172,7 @@ script = ExtResource("1_46p2k")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_uo70v")
 animation = &"walk_right"
-frame_progress = 0.0773644
+frame_progress = 0.256222
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_2badw")

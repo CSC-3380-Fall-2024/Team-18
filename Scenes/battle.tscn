@@ -49,11 +49,21 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -7.0
-offset_bottom = -11.0
+offset_left = 131.0
+offset_top = 98.0
+offset_right = 124.0
+offset_bottom = 87.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.282768, 0.288886)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_8p1uu")
+
+[node name="Camera2D" type="Camera2D" parent="." groups=["Player"]]
+position = Vector2(571.499, 326.256)
+scale = Vector2(1.15832, 1.42491)
+zoom = Vector2(3, 3)
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
@@ -108,7 +118,8 @@ label_settings = SubResource("LabelSettings_hmfbm")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
-visible_ratio = -0.111111
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Enemy" type="TextureRect" parent="EnemyContainer"]
 layout_mode = 2
@@ -181,7 +192,8 @@ label_settings = SubResource("LabelSettings_hmfbm")
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
-visible_ratio = -0.111111
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Actions" type="Panel" parent="."]
 layout_mode = 1
@@ -286,4 +298,6 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_font_sizes/font_size = 10
 text = ">"
 
+[connection signal="pressed" from="Actions/Actions/Attack" to="." method="On_attack_pressed"]
+[connection signal="pressed" from="Actions/Actions/Defend" to="." method="On_defend_pressed"]
 [connection signal="pressed" from="Actions/Actions/Run" to="." method="_on_run_pressed"]

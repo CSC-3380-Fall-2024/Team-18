@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dixs0rvjx7oga"]
+
+[ext_resource type="Script" path="res://Scripts/BaseEnemy.cs" id="1_5ghqq"]
+[ext_resource type="Texture2D" uid="uid://b34gl36ormauc" path="res://Assets/Icons/icon29.png" id="2_nppwk"]
+
+[resource]
+script = ExtResource("1_5ghqq")
+name = "Eyeman"
+texture = ExtResource("2_nppwk")
+health = 60
+damage = 50
