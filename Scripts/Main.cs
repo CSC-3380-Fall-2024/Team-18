@@ -6,26 +6,26 @@ public partial class Main : CharacterBody2D
 {
     public class DialogueNode
     {
-        public string Text { get; set; }
-        public List<string> Options { get; set; }
-        public List<DialogueNode> NextNodes { get; set; }
+        public string text { get; set; }
+        public List<string> options { get; set; }
+        public List<DialogueNode> next_nodes { get; set; }
 
-        public DialogueNode(string text, List<string> options, List<DialogueNode> nextNodes)
+        public DialogueNode(string input_text, List<string> input_options, List<DialogueNode> input_next_nodes)
         {
-            Text = text;
-            Options = options;
-            NextNodes = nextNodes;
+            text = input_text;
+            options = input_options;
+            next_nodes = input_next_nodes;
         }
     }
 
-    private List<DialogueNode> dialogueTree = new List<DialogueNode>();
-    private int currentNodeIndex = 0;
-    private const float interactionRange = 50.0f; 
-    private bool isInteracting = false; 
+    private List<DialogueNode> dialogue_tree = new List<DialogueNode>();
+    private int current_node_index = 0;
+    private const float interaction_range = 50.0f; 
+    private bool is_interacting = false; 
 
     public override void _Ready()
     {
-        dialogueTree.Add(new DialogueNode("Wassup g", 
+        dialogue_tree.Add(new DialogueNode("Wassup g", 
             new List<string> { "Ask about the quest", "Bye idiot, I don't have time to talk" }, 
             new List<DialogueNode>
             {
@@ -36,11 +36,11 @@ public partial class Main : CharacterBody2D
 
     public override void _Process(float delta)
     {
-        var npcPosition = GetPosition();
-        var playerPosition = GetNode<Player>("Player").GetPosition(); 
+        var npc_position = GetPosition();
+        var player_position = GetNode<Player>("Player").GetPosition(); 
 
        
-        if (playerPosition.DistanceTo(npcPosition) <= interactionRange && !isInteracting)
+        if (player_position.DistanceTo(npc_position) <= interaction_range && !is_interacting)
         {
             AskToInteract();
         }
@@ -48,62 +48,62 @@ public partial class Main : CharacterBody2D
 
     private void AskToInteract()
     {
-        isInteracting = true;
-        GetNode<Label>("DialogueLabel").Text = "Approach? Yes/No";
+        is_interacting = true;
+        GetNode<Label>("DialogueLabel").text = "Approach? Yes/No";
 
         var buttons = GetNode<VBoxContainer>("OptionsContainer");
         buttons.ClearChildren();
 
        
-        var yesButton = new Button { Text = "Yes" };
-        yesButton.Connect("pressed", this, nameof(OnYesSelected));
-        buttons.AddChild(yesButton);
+        var yes_button = new Button { text = "Yes" };
+        yes_button.Connect("pressed", this, nameof(OnYesSelected));
+        buttons.AddChild(yes_button);
 
      
-        var noButton = new Button { Text = "No" };
-        noButton.Connect("pressed", this, nameof(OnNoSelected));
-        buttons.AddChild(noButton);
+        var no_button = new Button { text = "No" };
+        no_button.Connect("pressed", this, nameof(OnNoSelected));
+        buttons.AddChild(no_button);
     }
 
     private void OnYesSelected()
     {
-        currentNodeIndex = 0; 
-        ShowDialogue(currentNodeIndex); 
+        current_node_index = 0; 
+        ShowDialogue(current_node_index); 
     }
 
     private void OnNoSelected()
     {
-        isInteracting = false; 
+        is_interacting = false; 
         GetNode<VBoxContainer>("OptionsContainer").ClearChildren(); 
-        GetNode<Label>("DialogueLabel").Text = ""; 
+        GetNode<Label>("DialogueLabel").text = ""; 
     }
 
     private void ShowDialogue(int index)
     {
-        if (index >= dialogueTree.Count) return;
+        if (index >= dialogue_tree.Count) return;
 
-        var currentNode = dialogueTree[index];
-        GetNode<Label>("DialogueLabel").Text = currentNode.Text;
+        var current_node = dialogue_tree[index];
+        GetNode<Label>("DialogueLabel").text = current_node.text;
 
         var buttons = GetNode<VBoxContainer>("OptionsContainer");
         buttons.ClearChildren();
 
-        for (int i = 0; i < currentNode.Options.Count; i++)
+        for (int i = 0; i < current_node.options.Count; i++)
         {
-            var button = new Button { Text = currentNode.Options[i] };
-            int optionIndex = i;
-            button.Connect("pressed", this, nameof(OnOptionSelected), new Godot.Collections.Array { optionIndex });
+            var button = new Button { text = current_node.options[i] };
+            int option_index = i;
+            button.Connect("pressed", this, nameof(OnOptionSelected), new Godot.Collections.Array { option_index });
             buttons.AddChild(button);
         }
     }
 
-    private void OnOptionSelected(int optionIndex)
+    private void OnOptionSelected(int option_index)
     {
-        var currentNode = dialogueTree[currentNodeIndex];
-        if (optionIndex < currentNode.NextNodes.Count)
+        var current_node = dialogue_tree[current_node_index];
+        if (option_index < current_node.next_nodes.Count)
         {
-            currentNodeIndex = dialogueTree.IndexOf(currentNode.NextNodes[optionIndex]);
-            ShowDialogue(currentNodeIndex);
+            current_node_index = dialogue_tree.IndexOf(current_node.next_nodes[option_index]);
+            ShowDialogue(current_node_index);
         }
     }
 }
