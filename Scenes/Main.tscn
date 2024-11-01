@@ -1,18 +1,19 @@
-[gd_scene load_steps=22 format=3 uid="uid://dxckndnej1x7r"]
+[gd_scene load_steps=23 format=3 uid="uid://dxckndnej1x7r"]
 
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_hquxe"]
-[ext_resource type="Texture2D" uid="uid://b52fx53i6ijjs" path="res://Assets/Assets/Tilesets/Water.png" id="2_11tn2"]
-[ext_resource type="Texture2D" uid="uid://dt0mgjlxok6xg" path="res://Assets/Assets/Tilesets/Grass.png" id="3_5oph5"]
-[ext_resource type="Texture2D" uid="uid://qtm0taw020w8" path="res://Assets/Assets/Tilesets/Tilled Dirt.png" id="4_oetm6"]
-[ext_resource type="Texture2D" uid="uid://c2wdfmtqsxkl1" path="res://Assets/Assets/Tilesets/Basic Grass Biom things 1.png" id="5_sst8c"]
-[ext_resource type="Texture2D" uid="uid://l57ngeblcyjj" path="res://Assets/Assets/Tilesets/Wooden House.png" id="6_mjbnd"]
-[ext_resource type="Texture2D" uid="uid://bppfktlqcdikv" path="res://Assets/Assets/Tilesets/Paths.png" id="7_s6p3t"]
+[ext_resource type="Texture2D" uid="uid://b52fx53i6ijjs" path="res://Assets/Tilesets/Water.png" id="2_11tn2"]
+[ext_resource type="Texture2D" uid="uid://dt0mgjlxok6xg" path="res://Assets/Tilesets/Grass.png" id="3_5oph5"]
+[ext_resource type="Texture2D" uid="uid://qtm0taw020w8" path="res://Assets/Tilesets/Tilled Dirt.png" id="4_oetm6"]
+[ext_resource type="Texture2D" uid="uid://c2wdfmtqsxkl1" path="res://Assets/Tilesets/Basic Grass Biom things 1.png" id="5_sst8c"]
+[ext_resource type="Texture2D" uid="uid://l57ngeblcyjj" path="res://Assets/Tilesets/Wooden House.png" id="6_mjbnd"]
+[ext_resource type="Texture2D" uid="uid://bppfktlqcdikv" path="res://Assets/Tilesets/Paths.png" id="7_s6p3t"]
 [ext_resource type="PackedScene" uid="uid://g7g7y5j5s5a0" path="res://Scenes/player.tscn" id="8_1hwgd"]
 [ext_resource type="PackedScene" uid="uid://dewkt2wubgjou" path="res://Scenes/inventory_item.tscn" id="9_6t2tt"]
-[ext_resource type="Texture2D" uid="uid://sojvlvdm4whn" path="res://Assets/Assets/Icons/icon22.png" id="10_3yj14"]
-[ext_resource type="Texture2D" uid="uid://ddv6mxuadlcvr" path="res://Assets/Assets/Icons/icon23.png" id="11_0tt3o"]
-[ext_resource type="Texture2D" uid="uid://chrl5dn1knwoh" path="res://Assets/Assets/Icons/icon24.png" id="12_ygunk"]
-[ext_resource type="Texture2D" uid="uid://by0onh1xpbew8" path="res://Assets/Assets/Icons/icon11.png" id="13_ydn7u"]
+[ext_resource type="Texture2D" uid="uid://sojvlvdm4whn" path="res://Assets/Icons/icon22.png" id="10_3yj14"]
+[ext_resource type="Texture2D" uid="uid://ddv6mxuadlcvr" path="res://Assets/Icons/icon23.png" id="11_0tt3o"]
+[ext_resource type="Texture2D" uid="uid://chrl5dn1knwoh" path="res://Assets/Icons/icon24.png" id="12_ygunk"]
+[ext_resource type="Texture2D" uid="uid://by0onh1xpbew8" path="res://Assets/Icons/icon11.png" id="13_ydn7u"]
+[ext_resource type="PackedScene" uid="uid://c5d160n4s4dk6" path="res://Scenes/npc.tscn" id="14_8meid"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_s8ogb"]
 tile_data = PackedInt32Array(0, 65541, 0, 65536, 65541, 1, 1, 131077, 0, 65537, 131077, 1)
@@ -469,6 +470,7 @@ sources/7 = SubResource("TileSetAtlasSource_s2bhh")
 pattern_0 = SubResource("TileMapPattern_s8ogb")
 
 [node name="Main" type="Node2D"]
+position = Vector2(-13, -10)
 script = ExtResource("1_hquxe")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -523,3 +525,6 @@ item_type = "7"
 item_name = "henry"
 item_texture = ExtResource("13_ydn7u")
 item_effect = "whateverthisis"
+
+[node name="Npc" parent="." instance=ExtResource("14_8meid")]
+position = Vector2(452, 104)
