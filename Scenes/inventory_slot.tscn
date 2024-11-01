@@ -68,6 +68,7 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_o85s0")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_41ob4")
 
 [node name="Outer_Border2" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -130,6 +131,7 @@ theme_override_font_sizes/font_size = 40
 text = "Effect"
 
 [node name="Usage_Panel" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_top = -150.0
 offset_right = 240.0
@@ -150,7 +152,7 @@ theme_override_fonts/font = ExtResource("3_ap3gp")
 theme_override_font_sizes/font_size = 40
 text = "USE"
 
-[node name="Drop_Button" type="Button" parent="Usage_Panel"]
+[node name="Discard_Button" type="Button" parent="Usage_Panel"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -165,8 +167,9 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_ap3gp")
 theme_override_font_sizes/font_size = 40
-text = "DROP"
+text = "DISCARD"
 
-[connection signal="mouse_entered" from="Item_Button" to="." method="_on_item_button_mouse_entered"]
-[connection signal="mouse_exited" from="Item_Button" to="." method="_on_item_button_mouse_exited"]
-[connection signal="pressed" from="Item_Button" to="." method="_on_item_button_pressed"]
+[connection signal="mouse_entered" from="Item_Button" to="." method="OnItemButtonMouseEntered"]
+[connection signal="mouse_exited" from="Item_Button" to="." method="OnItemButtonMouseExited"]
+[connection signal="pressed" from="Item_Button" to="." method="OnItemButtonPressed"]
+[connection signal="pressed" from="Usage_Panel/Discard_Button" to="." method="OnDiscardButtonPressed"]
