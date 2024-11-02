@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://b61j61dtc2dhb"]
 
 [ext_resource type="Script" path="res://Scripts/InventorySlot.cs" id="1_ghgsl"]
-[ext_resource type="Texture2D" uid="uid://dgdxi620onjfe" path="res://Assets/Assets/Icons/icon8.png" id="2_25ykw"]
-[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Assets/Fonts/ARCADECLASSIC.TTF" id="3_ap3gp"]
+[ext_resource type="Texture2D" uid="uid://dgdxi620onjfe" path="res://Assets/Icons/icon8.png" id="2_25ykw"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="3_ap3gp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o85s0"]
 
@@ -130,6 +130,7 @@ theme_override_font_sizes/font_size = 40
 text = "Effect"
 
 [node name="Usage_Panel" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_top = -150.0
 offset_right = 240.0
