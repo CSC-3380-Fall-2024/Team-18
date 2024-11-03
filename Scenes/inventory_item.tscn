@@ -1,13 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dewkt2wubgjou"]
+[gd_scene load_steps=3 format=3 uid="uid://dewkt2wubgjou"]
 
 [ext_resource type="Script" path="res://Scripts/InventoryItem.cs" id="1_1j1rn"]
-[ext_resource type="Script" path="res://Scenes/door.cs" id="2_24o4y"]
-[ext_resource type="Texture2D" uid="uid://cs8nsdi8v2f31" path="res://icon.svg" id="3_png4m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eukts"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrif4"]
-size = Vector2(24, 109)
 
 [node name="Inventory_Item" type="Node2D"]
 script = ExtResource("1_1j1rn")
@@ -18,18 +13,6 @@ script = ExtResource("1_1j1rn")
 shape = SubResource("CircleShape2D_eukts")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-script = ExtResource("2_24o4y")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-position = Vector2(177.5, 48)
-scale = Vector2(0.179688, 0.875)
-texture = ExtResource("3_png4m")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(177, 47.5)
-shape = SubResource("RectangleShape2D_wrif4")
 
 [connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
 [connection signal="body_exited" from="Area2D" to="." method="OnArea2DBodyExited"]
