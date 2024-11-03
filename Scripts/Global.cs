@@ -14,6 +14,8 @@ public partial class Global : Node
 {
 	// Inventory array, stores all items as well as their data (quantities, types, etc.)
 	public dynamic[] inventory = new dynamic[30];
+	public dynamic[] shop = new dynamic[10];
+	public int money = 1000;
 	public int karma = 0;
 	//Signal library; uses the CustomSignals script.
     public CustomSignals custom_signals;
@@ -31,6 +33,7 @@ public partial class Global : Node
 	public override void _Ready()
 	{
 		inventory_slot_scene = GD.Load<PackedScene>("res://Scenes/inventory_slot.tscn");
+		shop_slot_scene = GD.Load<PackedScene>("res://Scenes/shop_slot.tscn");
 		custom_signals = GetNode<CustomSignals>("/root/CustomSignals");
 		glbl = GetNode<Global>("/root/Global");
 
