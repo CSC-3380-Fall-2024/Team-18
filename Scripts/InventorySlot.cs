@@ -5,8 +5,12 @@ using System.Collections.Generic;
 	Summary:
 	Script for placing the inventory items into the correct slots. Currently untouched.
 	*/
+	
+
 public partial class InventorySlot : Control
 {
+	
+
 	//Inventory icon for item
 	public Sprite2D icon;
 	//Label for the amount of items; NOT the quantity itself.
@@ -35,6 +39,8 @@ public partial class InventorySlot : Control
 		details_panel = GetNode<ColorRect>("Outer_Border2");
 		usage_panel = GetNode<ColorRect>("Usage_Panel");
 		glbl = GetNode<Global>("/root/Global");
+		details_panel.Visible = false;
+		usage_panel.Visible = false;
 		
 
 	}
@@ -118,8 +124,19 @@ public partial class InventorySlot : Control
 	*/
 	public void OnDiscardButtonPressed()
 	{
-		if(item != null){
+		if(item_name != null){
 			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+		}
+	}
+	
+	public override void _Input(InputEvent @event) 
+	{
+		if (Input.IsMouseButtonPressed(MouseButton.Left))
+		{
+			if(!usage_panel.GetGlobalRect().HasPoint(GetGlobalMousePosition()))
+			{
+				usage_panel.Visible = false;
+			}
 		}
 	}
 }

@@ -15,7 +15,7 @@ public partial class Global : Node
 	// Inventory array, stores all items as well as their data (quantities, types, etc.)
 	public dynamic[] inventory = new dynamic[30];
 	//Signal library; uses the CustomSignals script.
-    public CustomSignals custom_signals;
+	public CustomSignals custom_signals;
 	//The player. Starts as null, and refers to the player via method when the game starts to run.
 	 public CharacterBody2D player_node = null;
 
@@ -131,4 +131,3 @@ public partial class Global : Node
 			inventory[i-1] = inventory[i];
 		}
 }
-
