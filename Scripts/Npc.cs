@@ -17,7 +17,7 @@ public partial class Npc: CharacterBody2D{
 			dialoguebox = GetNode<CanvasLayer>("dialoguebox");
 			//Presstalk = GetNode<CanvasLayer>("Presstalk");
 			char_anim.Play("idle");
-			dialoguebox.Visible = false;
+			//dialoguebox.Visible = false;
 			
 			//Presstalk.Visible = false;
 
@@ -29,28 +29,33 @@ public partial class Npc: CharacterBody2D{
 		if (player_in_range && Input.IsActionJustPressed("ui_add"))
 		{
 			GD.Print("hello for now");
+			Talk();
 		}
 	}
 
 	
 	public void OnArea2DBodyEntered(Player body)
 	{
+		GD.Print("Body Entered Type: ", body.GetType());
 		//checks for the player specifically
-		if(body.IsInGroup("Player"))
+		if(body is Player player && body.IsInGroup("Player"))
 		{
 			GD.Print("yes");
 			player_in_range = true;
+			GD.Print("Player in Range?", player_in_range);
 			body.Presstalk.Visible = true;
 		}
 	}
 
 	public void OnArea2DBodyExited(Player body)
 	{
-		if(body.IsInGroup("Player"))
+		GD.Print("Body Entered Type: ", body.GetType());
+		if(body is Player player && body.IsInGroup("Player"))
 		{
 			GD.Print("no");
 			player_in_range = false;
 			body.Presstalk.Visible = false;
+			dialoguebox.Visible = false;
 		}
 	}
 
@@ -63,17 +68,15 @@ public partial class Npc: CharacterBody2D{
 			}
 	}
 
-	public void Talk(InputEvent @event)
+	public void Talk()
 	{
-		if(@event.IsActionPressed("talk") && player_in_range == true)
-		{
-			GD.Print("Please god help me.");
-			talking = true;
-			dialoguebox.Visible = !dialoguebox.Visible;
-			//Presstalk.Visible = !Presstalk.Visible;
-			GD.Print("Enter.");
+		
+		GD.Print("Please god help me.");
+		talking = true;
+		dialoguebox.Visible = !dialoguebox.Visible;
+		//Presstalk.Visible = !Presstalk.Visible;
+		GD.Print("Enter.");
 			
-		}
 
 	}
 }
