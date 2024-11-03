@@ -130,7 +130,6 @@ theme_override_font_sizes/font_size = 40
 text = "Effect"
 
 [node name="Usage_Panel" type="ColorRect" parent="."]
-visible = false
 layout_mode = 0
 offset_top = -150.0
 offset_right = 240.0
@@ -168,6 +167,8 @@ theme_override_fonts/font = ExtResource("3_ap3gp")
 theme_override_font_sizes/font_size = 40
 text = "DROP"
 
-[connection signal="mouse_entered" from="Item_Button" to="." method="_on_item_button_mouse_entered"]
-[connection signal="mouse_exited" from="Item_Button" to="." method="_on_item_button_mouse_exited"]
-[connection signal="pressed" from="Item_Button" to="." method="_on_item_button_pressed"]
+[connection signal="mouse_entered" from="Item_Button" to="." method="OnItemButtonMouseEntered"]
+[connection signal="mouse_exited" from="Item_Button" to="." method="OnItemButtonMouseExited"]
+[connection signal="pressed" from="Item_Button" to="." method="OnItemButtonPressed"]
+[connection signal="focus_exited" from="Usage_Panel" to="." method="OnUsagePanelFocusExited"]
+[connection signal="pressed" from="Usage_Panel/Drop_Button" to="." method="OnDiscardButtonPressed"]
