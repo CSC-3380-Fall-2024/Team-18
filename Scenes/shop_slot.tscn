@@ -1,0 +1,158 @@
+[gd_scene load_steps=6 format=3 uid="uid://wrpc8nr3yxim"]
+
+[ext_resource type="Script" path="res://Scripts/ShopSlot.cs" id="1_h1ukv"]
+[ext_resource type="Texture2D" uid="uid://dgdxi620onjfe" path="res://Assets/Assets/Icons/icon8.png" id="2_0di38"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Assets/Fonts/ARCADECLASSIC.TTF" id="3_xv67g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o85s0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_41ob4"]
+
+[node name="Shop_Slot" type="Control"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 160.0
+offset_bottom = 160.0
+script = ExtResource("1_h1ukv")
+
+[node name="Outer_Border" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.596078, 0.933333, 1, 1)
+
+[node name="Inner_Border" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -70.0
+offset_right = 70.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.481789, 0.481789, 0.481789, 1)
+
+[node name="ItemIcon" type="Sprite2D" parent="Inner_Border"]
+position = Vector2(70, 70)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_0di38")
+
+[node name="ItemPrice" type="Label" parent="Inner_Border"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 45.0
+offset_bottom = 51.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_xv67g")
+theme_override_font_sizes/font_size = 50
+text = "1"
+
+[node name="Item_Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_o85s0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_41ob4")
+
+[node name="Outer_Border2" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -225.0
+offset_right = 170.0
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Details_Panel" type="ColorRect" parent="Outer_Border2"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 245.0
+offset_bottom = 135.0
+color = Color(0.596078, 0.933333, 0.8, 1)
+
+[node name="Item_Name" type="Label" parent="Outer_Border2/Details_Panel"]
+layout_mode = 1
+offset_left = 5.0
+offset_right = 45.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("3_xv67g")
+theme_override_font_sizes/font_size = 40
+text = "Name"
+
+[node name="Item_Type" type="Label" parent="Outer_Border2/Details_Panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -11.5
+offset_right = 45.0
+offset_bottom = 11.5
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 0.784314)
+theme_override_fonts/font = ExtResource("3_xv67g")
+theme_override_font_sizes/font_size = 40
+text = "type"
+
+[node name="Item_Effect" type="Label" parent="Outer_Border2/Details_Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -23.0
+offset_right = 45.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 0.588235)
+theme_override_fonts/font = ExtResource("3_xv67g")
+theme_override_font_sizes/font_size = 40
+text = "Effect"
+
+[node name="Usage_Panel" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_top = -150.0
+offset_right = 240.0
+offset_bottom = -20.0
+color = Color(0.596078, 0.933333, 0.8, 1)
+
+[node name="Purchase_Button" type="Button" parent="Usage_Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -115.0
+offset_top = 10.0
+offset_right = 115.0
+offset_bottom = 59.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_xv67g")
+theme_override_font_sizes/font_size = 40
+text = "PURCHASE"
+
+[connection signal="mouse_entered" from="Item_Button" to="." method="OnItemButtonMouseEntered"]
+[connection signal="mouse_exited" from="Item_Button" to="." method="OnItemButtonMouseExited"]
+[connection signal="pressed" from="Item_Button" to="." method="OnItemButtonPressed"]
+[connection signal="pressed" from="Usage_Panel/Purchase_Button" to="." method="OnPurchaseButtonPressed"]

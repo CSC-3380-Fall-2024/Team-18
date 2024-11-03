@@ -110,6 +110,12 @@ public partial class Player : CharacterBody2D
 			GetTree().Paused = !GetTree().Paused;
 		}
 		
+		if(@event.IsActionPressed("ui_interact"))
+		{
+			shop_ui.Visible = !shop_ui.Visible;
+			GetTree().Paused = !GetTree().Paused;
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnShopOpened));
+		}
 		if(@event.IsActionPressed("ui_karma"))
 		{
 			karma_ui.Visible = !karma_ui.Visible;
