@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cl33cgdbic0y2" path="res://Assets/Icons/knight.png" id="2_kgmhe"]
 [ext_resource type="Texture2D" uid="uid://bgennecnluipi" path="res://Assets/Icons/Dialogue_box.png" id="3_2tdce"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_oyfi5"]
+radius = 32.0156
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0bmn"]
 atlas = ExtResource("2_kgmhe")
 region = Rect2(0, 0, 32, 32)
@@ -76,12 +79,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_qsba6"]
 radius = 11.0454
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_oyfi5"]
-radius = 32.0156
-
 [node name="Npc" type="CharacterBody2D"]
 position = Vector2(-1, -2)
 script = ExtResource("1_flsb4")
+
+[node name="Detection" type="Area2D" parent="." groups=["Npc"]]
+position = Vector2(1, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection" groups=["Npc"]]
+shape = SubResource("CircleShape2D_oyfi5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
@@ -89,17 +95,8 @@ sprite_frames = SubResource("SpriteFrames_x6bal")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 3)
+position = Vector2(1, 2)
 shape = SubResource("CircleShape2D_qsba6")
-
-[node name="Detection" type="Area2D" parent="." groups=["Npc"]]
-position = Vector2(-29, 10)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection" groups=["Npc"]]
-position = Vector2(30, -7)
-shape = SubResource("CircleShape2D_oyfi5")
 
 [node name="dialoguebox" type="CanvasLayer" parent="."]
 visible = false
@@ -146,4 +143,5 @@ offset_bottom = 94.0
 scale = Vector2(0.3, 0.3)
 text = "Dialogue"
 
-[connection signal="body_entered" from="Detection" to="." method="body_entered"]
+[connection signal="body_entered" from="Detection" to="." method="OnArea2DBodyEntered"]
+[connection signal="body_exited" from="Detection" to="." method="OnArea2DBodyExited"]

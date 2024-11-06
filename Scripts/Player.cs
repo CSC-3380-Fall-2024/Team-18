@@ -16,7 +16,8 @@ public partial class Player : CharacterBody2D
 	//CanvasLayer for the screen that appears when you open the inventory.
 	[Export]
 	public CanvasLayer inventory_ui;
-
+	[Export]
+	public CanvasLayer Presstalk;
 	[Export]
 	public CanvasLayer shop_ui;
 	[Export]
@@ -39,6 +40,9 @@ public partial class Player : CharacterBody2D
 		glbl.SetPlayerReference(this);
 		interact_ui = GetNode<CanvasLayer>("InteractUI");
 		inventory_ui = GetNode<CanvasLayer>("InventoryUI");
+		Presstalk = GetNode<CanvasLayer>("Presstalk");
+		interact_ui.Visible = false;
+		Presstalk.Visible = false;
 		shop_ui = GetNode<CanvasLayer>("ShopUI");
 		karma_ui = GetNode<CanvasLayer>("KarmaUI");
 		karma_label = GetNode<Label>("KarmaUI/ColorRect/Label");
