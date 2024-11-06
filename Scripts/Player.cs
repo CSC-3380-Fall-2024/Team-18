@@ -18,6 +18,14 @@ public partial class Player : CharacterBody2D
 	public CanvasLayer inventory_ui;
 	[Export]
 	public CanvasLayer Presstalk;
+	[Export]
+	public CanvasLayer shop_ui;
+	[Export]
+	public CanvasLayer karma_ui;
+	[Export]
+	public Label karma_label;
+	[Export]
+	public Label inventory_money;
 	//Global Reference
 	public Global glbl;
 	/*
@@ -35,6 +43,10 @@ public partial class Player : CharacterBody2D
 		Presstalk = GetNode<CanvasLayer>("Presstalk");
 		interact_ui.Visible = false;
 		Presstalk.Visible = false;
+		shop_ui = GetNode<CanvasLayer>("ShopUI");
+		karma_ui = GetNode<CanvasLayer>("KarmaUI");
+		karma_label = GetNode<Label>("KarmaUI/ColorRect/Label");
+		inventory_money = GetNode<Label>("InventoryUI/ColorRect/Money");
 	}
 	
 	/*
@@ -98,7 +110,21 @@ public partial class Player : CharacterBody2D
 		if(@event.IsActionPressed("ui_inventory"))
 		{
 			inventory_ui.Visible = !inventory_ui.Visible;
+			inventory_money.Text = "Money = " + glbl.money.ToString();
 			GetTree().Paused = !GetTree().Paused;
+		}
+		
+		if(@event.IsActionPressed("ui_interact"))
+		{
+			shop_ui.Visible = !shop_ui.Visible;
+			GetTree().Paused = !GetTree().Paused;
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnShopOpened));
+		}
+		if(@event.IsActionPressed("ui_karma"))
+		{
+			karma_ui.Visible = !karma_ui.Visible;
+			GetTree().Paused = !GetTree().Paused;
+			karma_label.Text = "Karma = " + glbl.karma.ToString() + "\n";
 		}
 	}
 }

@@ -14,6 +14,9 @@ public partial class Global : Node
 {
 	// Inventory array, stores all items as well as their data (quantities, types, etc.)
 	public dynamic[] inventory = new dynamic[30];
+	public dynamic[] shop = new dynamic[10];
+	public int money = 1000;
+	public int karma = 0;
 	//Signal library; uses the CustomSignals script.
 	public CustomSignals custom_signals;
 	//The player. Starts as null, and refers to the player via method when the game starts to run.
@@ -21,6 +24,7 @@ public partial class Global : Node
 
 	 //Loads the 'inventory_slot' scene, and stores it here.
 	 public PackedScene inventory_slot_scene;
+	 public PackedScene shop_slot_scene;
 
 	//Global Singleton reference.
 	 public Global glbl;
@@ -29,8 +33,10 @@ public partial class Global : Node
 	public override void _Ready()
 	{
 		inventory_slot_scene = GD.Load<PackedScene>("res://Scenes/inventory_slot.tscn");
+		shop_slot_scene = GD.Load<PackedScene>("res://Scenes/shop_slot.tscn");
 		custom_signals = GetNode<CustomSignals>("/root/CustomSignals");
 		glbl = GetNode<Global>("/root/Global");
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://g7g7y5j5s5a0"]
+[gd_scene load_steps=28 format=3 uid="uid://g7g7y5j5s5a0"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_46p2k"]
-[ext_resource type="Texture2D" uid="uid://cl33cgdbic0y2" path="res://Assets/Icons/knight.png" id="2_7uybr"]
-[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="3_7fqa5"]
+[ext_resource type="Texture2D" uid="uid://da56j0wgg75ho" path="res://Assets/Assets/knight.png" id="2_7uybr"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Assets/Fonts/ARCADECLASSIC.TTF" id="3_7fqa5"]
 [ext_resource type="PackedScene" uid="uid://b38fc6lolv0f3" path="res://Scenes/inventory_ui.tscn" id="4_b27px"]
+[ext_resource type="PackedScene" uid="uid://b6e62l8jspo7" path="res://Scenes/shop_ui.tscn" id="5_p2cjx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vi60t"]
 atlas = ExtResource("2_7uybr")
@@ -258,6 +259,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.192157, 0.376471, 0.321569, 1)
 
+[node name="Money" type="Label" parent="InventoryUI/ColorRect"]
+layout_mode = 0
+offset_right = 176.0
+offset_bottom = 51.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_7fqa5")
+theme_override_font_sizes/font_size = 50
+text = "Money"
+
 [node name="Label" type="Label" parent="InventoryUI/ColorRect"]
 layout_mode = 1
 anchors_preset = 5
@@ -274,3 +284,58 @@ text = "Inventory
 "
 
 [node name="Inventory UI" parent="InventoryUI/ColorRect" instance=ExtResource("4_b27px")]
+
+[node name="ShopUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="ShopUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.190298, 0.270209, 0.606419, 1)
+
+[node name="Label" type="Label" parent="ShopUI/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -124.0
+offset_top = 50.0
+offset_right = 124.0
+offset_bottom = 101.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_7fqa5")
+theme_override_font_sizes/font_size = 50
+text = "Shop
+"
+
+[node name="Shop UI" parent="ShopUI/ColorRect" instance=ExtResource("5_p2cjx")]
+layout_mode = 1
+
+[node name="KarmaUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="KarmaUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.190298, 0.270209, 0.606419, 1)
+
+[node name="Label" type="Label" parent="KarmaUI/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -124.0
+offset_top = 50.0
+offset_right = 124.0
+offset_bottom = 101.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_7fqa5")
+theme_override_font_sizes/font_size = 50
+text = "Shop
+"
