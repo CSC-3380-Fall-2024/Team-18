@@ -74,7 +74,7 @@ public partial class Battle : Control
 	{
 		if ( Input.IsMouseButtonPressed(MouseButton.Left) && GetNode<Control>("Textbox").Visible == true)
 		{
-			GetTree().Paused = false;
+			//GetTree().Paused = false;
 			GD.Print("Text Closed");
 			GetNode<Control>("Textbox").Hide();
 			EmitSignal(nameof(TextClosed));
@@ -83,7 +83,7 @@ public partial class Battle : Control
 	}
 	public void display_text(String text)
 	{
-		GetTree().Paused = false;
+		//GetTree().Paused = false;
 		GetNode<Control>("Textbox").Show();
 		GetNode<Label>("Textbox/Label").Text = text;
 	}
@@ -145,7 +145,7 @@ public partial class Battle : Control
 	public async void On_items_pressed()
 	{
 		GetNode<CanvasLayer>("InventoryUI").Visible = true;
-		GetTree().Paused = !GetTree().Paused;
+		//GetTree().Paused = !GetTree().Paused;
 		
 	}
 

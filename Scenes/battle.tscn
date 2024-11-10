@@ -214,6 +214,7 @@ scale = Vector2(0.149785, 1.13423)
 text = ">"
 
 [node name="InventoryUI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="InventoryUI"]
 anchors_preset = 15

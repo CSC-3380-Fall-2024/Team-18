@@ -56,8 +56,9 @@ public partial class Npc: CharacterBody2D{
 			player_in_range = false;
 			body.Presstalk.Visible = false;
 			dialoguebox.Visible = false;
+			player.EnableMovement = false;
 			
-			GetTree().Paused = !GetTree().Paused;
+			//GetTree().Paused = !GetTree().Paused;
 			
 			BaseEnemy test_knight = GD.Load<BaseEnemy>("res://Scripts/test_knight.tres");
 			
