@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdkvsb82she27"]
+
+[ext_resource type="PackedScene" uid="uid://tnoqu67q0xx5" path="res://player.tscn" id="1_osc8r"]
+[ext_resource type="PackedScene" uid="uid://dqxelgmpchfbk" path="res://npc.tscn" id="2_qo574"]
+[ext_resource type="Script" path="res://GameManager.cs" id="3_lufuf"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Node2D" parent="." instance=ExtResource("1_osc8r")]
+position = Vector2(-244, 152)
+
+[node name="NPC" parent="." instance=ExtResource("2_qo574")]
+position = Vector2(38, 100)
+
+[node name="Game manager" type="Node2D" parent="."]
+script = ExtResource("3_lufuf")
