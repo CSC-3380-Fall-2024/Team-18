@@ -8,7 +8,7 @@ Note:
 Currently broken due to an error with connecting to an incorrect signal. Will try to fix later.
 - London
 */
-public partial class InventoryUi : Control
+public partial class ShopUi : Control
 {
 	[Export]
 	public GridContainer grid_container;
@@ -20,25 +20,25 @@ public partial class InventoryUi : Control
 		glbl = GetNode<Global>("/root/Global");
 		grid_container = GetNode<GridContainer>("GridContainer");
 		glbl.custom_signals = GetNode<CustomSignals>("/root/CustomSignals");
-		glbl.custom_signals.InventoryUpdated += OnInventoryUpdated;
-		OnInventoryUpdated();
+		glbl.custom_signals.OnShopOpened += OnShopOpened;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+
 	}
 	/*
 	Summary:
 	Listens for the InventoryUpdated signal; if recieved, calls ClearGridContainer and resets the inventory menu to match the current state of the inventory array.
 	*/
-	public void OnInventoryUpdated()
+	public void OnShopOpened()
 	{
 		ClearGridContainer();
-		foreach(Dictionary<string, dynamic> item in glbl.inventory)
+		foreach(Dictionary<string, dynamic> item in glbl.shop)
 		{
-			//Takes the loaded inventory slot from Global and instantiates it as a member of the InventorySlot class.
-			InventorySlot scene = glbl.inventory_slot_scene.Instantiate() as InventorySlot;
+			//Takes the loaded inventory slot from Global and instantiates it as a member of the ShopSlot class.
+			ShopSlot scene = glbl.shop_slot_scene.Instantiate() as ShopSlot;
 			//adds a new slot to the inventory
 			grid_container.AddChild(scene);
 			//if not empty, add with item
@@ -68,3 +68,4 @@ public partial class InventoryUi : Control
 		}
 	}
 }
+

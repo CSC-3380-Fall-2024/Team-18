@@ -5,12 +5,8 @@ using System.Collections.Generic;
 	Summary:
 	Script for placing the inventory items into the correct slots. Currently untouched.
 	*/
-	
-
-public partial class InventorySlot : Control
+public partial class ShopSlot : Control
 {
-	
-
 	//Inventory icon for item
 	public Sprite2D icon;
 	//Label for the amount of items; NOT the quantity itself.
@@ -21,6 +17,7 @@ public partial class InventorySlot : Control
 	public Label item_name;
 	//Label for the type of the item; NOT the type itself.
 	public Label item_type;
+	public Label item_price;
 	public ColorRect details_panel;
 	public ColorRect usage_panel;
 	//Global Reference
@@ -32,15 +29,13 @@ public partial class InventorySlot : Control
 	public override void _Ready()
 	{
 		icon = GetNode<Sprite2D>("Inner_Border/ItemIcon");
-		quantity_label = GetNode<Label>("Inner_Border/ItemQuantity");
 		item_effect = GetNode<Label>("Outer_Border2/Details_Panel/Item_Effect");
 		item_name = GetNode<Label>("Outer_Border2/Details_Panel/Item_Name");
 		item_type = GetNode<Label>("Outer_Border2/Details_Panel/Item_Type");
+		item_price = GetNode<Label>("Inner_Border/ItemPrice");
 		details_panel = GetNode<ColorRect>("Outer_Border2");
 		usage_panel = GetNode<ColorRect>("Usage_Panel");
 		glbl = GetNode<Global>("/root/Global");
-		details_panel.Visible = false;
-		usage_panel.Visible = false;
 		
 
 	}
@@ -92,7 +87,7 @@ public partial class InventorySlot : Control
 	public void SetEmpty()
 	{
 		icon.Texture = null;
-		quantity_label.Text = "";
+		item_price.Text = "";
 	}
 	/*
 	Summary:
@@ -105,7 +100,7 @@ public partial class InventorySlot : Control
 	{
 		item = new_item;
 		icon.Texture = new_item["item_texture"];
-		quantity_label.Text = item["quantity"].ToString();
+		item_price.Text = "$" + item["item_price"].ToString();
 		item_name.Text = item["item_name"].ToString();
 		item_type.Text = item["item_type"].ToString();
 		if (item["item_effect"] != "")
@@ -122,21 +117,12 @@ public partial class InventorySlot : Control
 	Summary:
 	If the discard button is pressed, removes the current item from the inventory.
 	*/
-	public void OnDiscardButtonPressed()
+	public void OnPurchaseButtonPressed()
 	{
-		if(item_name != null){
-			glbl.RemoveItem(item["item_type"], item["item_effect"]);
-		}
-	}
-	
-	public override void _Input(InputEvent @event) 
-	{
-		if (Input.IsMouseButtonPressed(MouseButton.Left))
-		{
-			if(!usage_panel.GetGlobalRect().HasPoint(GetGlobalMousePosition()))
-			{
-				usage_panel.Visible = false;
-			}
+		GD.Print("Signal recieved");
+		if(item != null && item["item_price"] < glbl.money){
+			glbl.AddItem(item);
+			glbl.money -= item["item_price"];
 		}
 	}
 }

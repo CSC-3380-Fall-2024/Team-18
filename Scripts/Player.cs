@@ -16,6 +16,20 @@ public partial class Player : CharacterBody2D
 	//CanvasLayer for the screen that appears when you open the inventory.
 	[Export]
 	public CanvasLayer inventory_ui;
+	[Export]
+	public CanvasLayer Presstalk;
+	[Export]
+	public CanvasLayer shop_ui;
+	[Export]
+	public CanvasLayer karma_ui;
+	[Export]
+	public Label karma_label;
+	[Export]
+	public Label inventory_money;
+ 	[Export]
+	public Label inventory_health;
+	//Global Reference
+	public Global glbl;
 	/*
 	Summary:
 	Called when the node enters the scene tree for the first time. 
@@ -23,10 +37,19 @@ public partial class Player : CharacterBody2D
 	*/
 	public override void _Ready()
 	{
+		glbl = GetNode<Global>("/root/Global");
 		char_anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		Global.Set_Player_Reference(this);
+		glbl.SetPlayerReference(this);
 		interact_ui = GetNode<CanvasLayer>("InteractUI");
 		inventory_ui = GetNode<CanvasLayer>("InventoryUI");
+		Presstalk = GetNode<CanvasLayer>("Presstalk");
+		interact_ui.Visible = false;
+		Presstalk.Visible = false;
+		shop_ui = GetNode<CanvasLayer>("ShopUI");
+		karma_ui = GetNode<CanvasLayer>("KarmaUI");
+		karma_label = GetNode<Label>("KarmaUI/ColorRect/Label");
+		inventory_money = GetNode<Label>("InventoryUI/ColorRect/Money");
+  		inventory_health = GetNode<Label>("InventoryUI/ColorRect/Health");
 	}
 	
 	/*
@@ -90,7 +113,22 @@ public partial class Player : CharacterBody2D
 		if(@event.IsActionPressed("ui_inventory"))
 		{
 			inventory_ui.Visible = !inventory_ui.Visible;
+			inventory_money.Text = "Money = " + glbl.money.ToString();
+   			inventory_health.Text = "Health = " + glbl.health.ToString();
 			GetTree().Paused = !GetTree().Paused;
+		}
+		
+		if(@event.IsActionPressed("ui_interact"))
+		{
+			shop_ui.Visible = !shop_ui.Visible;
+			GetTree().Paused = !GetTree().Paused;
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnShopOpened));
+		}
+		if(@event.IsActionPressed("ui_karma"))
+		{
+			karma_ui.Visible = !karma_ui.Visible;
+			GetTree().Paused = !GetTree().Paused;
+			karma_label.Text = "Karma = " + glbl.karma.ToString() + "\n";
 		}
 	}
 }

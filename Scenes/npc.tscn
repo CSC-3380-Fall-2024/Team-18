@@ -1,0 +1,147 @@
+[gd_scene load_steps=15 format=3 uid="uid://c5d160n4s4dk6"]
+
+[ext_resource type="Script" path="res://Scripts/Npc.cs" id="1_flsb4"]
+[ext_resource type="Texture2D" uid="uid://cl33cgdbic0y2" path="res://Assets/Icons/knight.png" id="2_kgmhe"]
+[ext_resource type="Texture2D" uid="uid://bgennecnluipi" path="res://Assets/Icons/Dialogue_box.png" id="3_2tdce"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oyfi5"]
+radius = 32.0156
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0bmn"]
+atlas = ExtResource("2_kgmhe")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qab12"]
+atlas = ExtResource("2_kgmhe")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmhsy"]
+atlas = ExtResource("2_kgmhe")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpslj"]
+atlas = ExtResource("2_kgmhe")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqnl1"]
+atlas = ExtResource("2_kgmhe")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buc41"]
+atlas = ExtResource("2_kgmhe")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmh8b"]
+atlas = ExtResource("2_kgmhe")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hm74"]
+atlas = ExtResource("2_kgmhe")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x6bal"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0bmn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qab12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmhsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpslj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqnl1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_buc41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmh8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hm74")
+}],
+"loop": true,
+"name": &"talk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qsba6"]
+radius = 11.0454
+
+[node name="Npc" type="CharacterBody2D"]
+position = Vector2(-1, -2)
+script = ExtResource("1_flsb4")
+
+[node name="Detection" type="Area2D" parent="." groups=["Npc"]]
+position = Vector2(1, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection" groups=["Npc"]]
+shape = SubResource("CircleShape2D_oyfi5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_x6bal")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2)
+shape = SubResource("CircleShape2D_qsba6")
+
+[node name="dialoguebox" type="CanvasLayer" parent="."]
+visible = false
+follow_viewport_scale = 0.001
+
+[node name="DialogueBox" type="Control" parent="dialoguebox"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 390.0
+offset_top = 110.0
+offset_right = 430.0
+offset_bottom = 150.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="dialoguebox/DialogueBox"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = -4.0
+offset_right = 131.0
+offset_bottom = 64.0
+texture = ExtResource("3_2tdce")
+region_rect = Rect2(0, 0, 100, 40)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Name" type="RichTextLabel" parent="dialoguebox/DialogueBox/NinePatchRect"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 68.0
+offset_bottom = 27.0
+scale = Vector2(0.4, 0.4)
+text = "Name:"
+
+[node name="Dialogue" type="RichTextLabel" parent="dialoguebox/DialogueBox/NinePatchRect"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 12.0
+offset_top = 11.0
+offset_right = 309.0
+offset_bottom = 94.0
+scale = Vector2(0.3, 0.3)
+text = "Dialogue"
+
+[connection signal="body_entered" from="Detection" to="." method="OnArea2DBodyEntered"]
+[connection signal="body_exited" from="Detection" to="." method="OnArea2DBodyExited"]
