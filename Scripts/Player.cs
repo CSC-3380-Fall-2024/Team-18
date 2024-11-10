@@ -26,6 +26,8 @@ public partial class Player : CharacterBody2D
 	public Label karma_label;
 	[Export]
 	public Label inventory_money;
+ 	[Export]
+	public Label inventory_health;
 	//Global Reference
 	public Global glbl;
 	/*
@@ -47,6 +49,7 @@ public partial class Player : CharacterBody2D
 		karma_ui = GetNode<CanvasLayer>("KarmaUI");
 		karma_label = GetNode<Label>("KarmaUI/ColorRect/Label");
 		inventory_money = GetNode<Label>("InventoryUI/ColorRect/Money");
+  		inventory_health = GetNode<Label>("InventoryUI/ColorRect/Health");
 	}
 	
 	/*
@@ -111,6 +114,7 @@ public partial class Player : CharacterBody2D
 		{
 			inventory_ui.Visible = !inventory_ui.Visible;
 			inventory_money.Text = "Money = " + glbl.money.ToString();
+   			inventory_health.Text = "Health = " + glbl.health.ToString();
 			GetTree().Paused = !GetTree().Paused;
 		}
 		
