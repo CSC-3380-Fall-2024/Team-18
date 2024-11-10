@@ -1,0 +1,248 @@
+[gd_scene load_steps=9 format=3 uid="uid://boiei36bvh15t"]
+
+[ext_resource type="Script" path="res://Scenes/Battle.cs" id="1_m7xug"]
+[ext_resource type="Texture2D" uid="uid://dtyhf5gx3vs4h" path="res://Assets/Tilesets/battleback4.png" id="1_ndhic"]
+[ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="3_b7en8"]
+[ext_resource type="Texture2D" uid="uid://bs3i7bjt3egjl" path="res://Robot NPC Idle.png" id="3_yef0h"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="5_ykgq8"]
+[ext_resource type="PackedScene" uid="uid://b38fc6lolv0f3" path="res://Scenes/inventory_ui.tscn" id="6_du5t8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ihgb1"]
+bg_color = Color(0.941176, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_okhds"]
+bg_color = Color(0.196078, 0.682353, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -4.0
+offset_right = -55.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.398176, 0.422479)
+script = ExtResource("1_m7xug")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ndhic")
+stretch_mode = 6
+
+[node name="EnemyContainer" type="VBoxContainer" parent="."]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.732
+offset_top = -94.898
+offset_right = -42.7324
+offset_bottom = 5.10196
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2.72586, 2.07111)
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyContainer"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ihgb1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_okhds")
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="EnemyContainer/ProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_b7en8")
+text = "HP: 50/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemy" type="TextureRect" parent="EnemyContainer"]
+layout_mode = 2
+texture = ExtResource("3_yef0h")
+
+[node name="PlayerPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -504.802
+offset_top = 160.955
+offset_right = -464.802
+offset_bottom = 200.955
+scale = Vector2(25.9026, 3.17785)
+
+[node name="PlayerHP" type="HBoxContainer" parent="PlayerPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 42.0
+scale = Vector2(0.140872, 0.957592)
+
+[node name="Label" type="Label" parent="PlayerPanel/PlayerHP"]
+layout_mode = 2
+text = "PLAYER"
+
+[node name="PlayerData" type="HBoxContainer" parent="PlayerPanel"]
+layout_mode = 0
+offset_left = 13.671
+offset_top = 8.93805
+offset_right = 53.671
+offset_bottom = 48.938
+scale = Vector2(0.626746, 0.598192)
+
+[node name="ProgressBar" type="ProgressBar" parent="PlayerPanel/PlayerData"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_ihgb1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_okhds")
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="PlayerPanel/PlayerData/ProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.9112
+offset_top = -8.79368
+offset_right = 27.0888
+offset_bottom = 3.20632
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.581596, 1.42577)
+theme_override_fonts/font = ExtResource("5_ykgq8")
+theme_override_font_sizes/font_size = 10
+text = "50/100"
+
+[node name="Actions" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -522.382
+offset_top = -258.001
+offset_right = -482.382
+offset_bottom = -218.001
+scale = Vector2(26.6422, 3.25108)
+
+[node name="Actions" type="HBoxContainer" parent="Actions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.565595
+offset_top = 5.82449
+offset_right = 186.566
+offset_bottom = 5.82449
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.172079, 0.736377)
+alignment = 1
+
+[node name="Attack" type="Button" parent="Actions/Actions"]
+layout_mode = 2
+text = "Attack"
+
+[node name="Items" type="Button" parent="Actions/Actions"]
+layout_mode = 2
+text = "Items"
+
+[node name="Defend" type="Button" parent="Actions/Actions"]
+layout_mode = 2
+text = "Defend"
+
+[node name="Run" type="Button" parent="Actions/Actions"]
+layout_mode = 2
+text = "Run"
+icon_alignment = 1
+
+[node name="Textbox" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -519.871
+offset_top = -258.001
+offset_right = -479.871
+offset_bottom = -218.001
+scale = Vector2(26.7799, 6.50784)
+
+[node name="Label" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.281342
+offset_top = 2.18228
+offset_right = 601.281
+offset_bottom = 2.18228
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.0635, 0.889419)
+theme_override_font_sizes/font_size = 18
+text = "A robot blocks your path. Get ready for combat."
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="Textbox"]
+layout_mode = 0
+offset_left = 37.5126
+offset_top = 17.4582
+offset_right = 77.5126
+offset_bottom = 40.4582
+scale = Vector2(0.149785, 1.13423)
+text = ">"
+
+[node name="InventoryUI" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="InventoryUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.05929, 1.06496)
+color = Color(0.192157, 0.376471, 0.321569, 1)
+
+[node name="Label" type="Label" parent="InventoryUI/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -124.0
+offset_top = 50.0
+offset_right = 124.0
+offset_bottom = 101.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_ykgq8")
+theme_override_font_sizes/font_size = 50
+text = "Inventory
+"
+
+[node name="Inventory UI" parent="InventoryUI/ColorRect" instance=ExtResource("6_du5t8")]
+scale = Vector2(0.964719, 0.970969)
+
+[connection signal="pressed" from="Actions/Actions/Attack" to="." method="On_attack_pressed"]
+[connection signal="pressed" from="Actions/Actions/Items" to="." method="On_items_pressed"]
+[connection signal="pressed" from="Actions/Actions/Defend" to="." method="On_defend_pressed"]
+[connection signal="pressed" from="Actions/Actions/Run" to="." method="On_run_pressed"]

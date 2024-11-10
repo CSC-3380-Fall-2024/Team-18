@@ -56,8 +56,24 @@ public partial class Npc: CharacterBody2D{
 			player_in_range = false;
 			body.Presstalk.Visible = false;
 			dialoguebox.Visible = false;
+			
+			GetTree().Paused = !GetTree().Paused;
+			
+			BaseEnemy test_knight = GD.Load<BaseEnemy>("res://Scripts/test_knight.tres");
+			
+			PackedScene battleScene = GD.Load<PackedScene>("res://Scenes/battle.tscn");
+			Battle BattleTest = battleScene.Instantiate<Battle>();
+			
+			BattleTest.enemy = test_knight;
+			
+			
+			GD.Print("yay");
+			AddChild(BattleTest);
+			
+			
 		}
 	}
+	
 
 	public void UpdateAnimations(){
 			if(talking == true){

@@ -212,6 +212,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_7fqa5")
 theme_override_font_sizes/font_size = 30
 text = "Press E to Pick up!"
+metadata/_edit_use_anchors_ = true
 
 [node name="Presstalk" type="CanvasLayer" parent="."]
 
@@ -246,6 +247,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_7fqa5")
 theme_override_font_sizes/font_size = 30
 text = "Press F to Talk!"
+metadata/_edit_use_anchors_ = true
 
 [node name="InventoryUI" type="CanvasLayer" parent="."]
 visible = false
