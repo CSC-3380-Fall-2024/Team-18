@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 
 [Signal]
@@ -19,6 +20,8 @@ public partial class Battle : Control
 	
 	[Export]
 	public BaseEnemy enemy;
+	[Export] 
+	public Player player;
 	[Export]
 	public CanvasLayer interact_ui;
 	//CanvasLayer for the screen that appears when you open the inventory.
@@ -115,6 +118,7 @@ public partial class Battle : Control
 	{
 		display_text("Escaped Successfully!");
 		await ToSignal(this, nameof(TextClosed));
+		player.EnableMovement = true;
 		QueueFree();
 	}
 	public async void On_attack_pressed()
@@ -129,6 +133,7 @@ public partial class Battle : Control
 			display_text("You Win.");
 			enemy.defeated = true;
 			await ToSignal(this, nameof(TextClosed));
+			player.EnableMovement = true;
 			GetParent().QueueFree();
 			QueueFree();
 		}
@@ -146,6 +151,9 @@ public partial class Battle : Control
 	{
 		GetNode<CanvasLayer>("InventoryUI").Visible = true;
 		//GetTree().Paused = !GetTree().Paused;
+		//JUST FOR DEMO
+		await Task.Delay(2000);
+		GetNode<CanvasLayer>("InventoryUI").Visible = false;
 		
 	}
 

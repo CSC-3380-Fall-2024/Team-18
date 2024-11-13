@@ -66,6 +66,7 @@ public partial class Npc: CharacterBody2D{
 			Battle BattleTest = battleScene.Instantiate<Battle>();
 			
 			BattleTest.enemy = test_knight;
+			BattleTest.player = player;
 			
 			
 			GD.Print("yay");
