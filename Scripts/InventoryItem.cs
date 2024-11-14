@@ -29,6 +29,8 @@ public partial class InventoryItem : Node2D
 	//Global Reference
 	public Global glbl;
 	bool player_in_range = false;
+
+	
 	/*
 	Summary:
 	Called when the node enters the scene tree for the first time.
@@ -103,6 +105,7 @@ public partial class InventoryItem : Node2D
 			player_in_range = true;
 			body.interact_ui.Visible = true;
 		}
+		
 	}
 	/*
 	Summary:

@@ -6,9 +6,6 @@ using System.Collections.Generic;
 	Script for placing the inventory items into the correct slots. Currently untouched.
 	*/
 	
-[Signal]
-public delegate void ItemUsed(string item_used);
-	
 
 public partial class InventorySlot : Control
 {
@@ -44,8 +41,6 @@ public partial class InventorySlot : Control
 		glbl = GetNode<Global>("/root/Global");
 		details_panel.Visible = false;
 		usage_panel.Visible = false;
-		
-		AddUserSignal(nameof(ItemUsed));
 		
 
 	}
@@ -131,18 +126,6 @@ public partial class InventorySlot : Control
 	{
 		if(item_name != null){
 			glbl.RemoveItem(item["item_type"], item["item_effect"]);
-		}
-	}
-	
-	public void OnUseButtonPressed()
-	{
-		if(item_name != null){
-			string item_used = GetNode<Label>("Outer_Border2/Details_Panel/Item_Name").Text;
-			EmitSignal(nameof(ItemUsed),item_used);
-			glbl.RemoveItem(item["item_type"], item["item_effect"]);
-			GD.Print($"{item_used}");
-			//HIDE THE INVENTORY. NOT 100% HOW RN
-			//GetTree().Root.GetNode<CanvasLayer>("InventoryUI").Visible = false;
 		}
 	}
 	

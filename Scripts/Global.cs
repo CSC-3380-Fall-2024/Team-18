@@ -22,6 +22,8 @@ public partial class Global : Node
 	 //Loads the 'inventory_slot' scene, and stores it here.
 	 public PackedScene inventory_slot_scene;
 
+	 public bool door = true;
+
 	//Global Singleton reference.
 	 public Global glbl;
 	
@@ -48,9 +50,10 @@ public partial class Global : Node
 	Returns true if it an add the item, returns false otherwise.
 	*/
 	public bool AddItem( Dictionary<string, dynamic> item){
-
+		glbl.door = false;
 		for(int i = 0; i < inventory.Length; i++) 
 		{
+			
 			//Checks for if the current item is of the same type and has the same effect
 			if ((inventory[i] != null) && (inventory[i]["item_type"] == item["item_type"]) && (inventory[i]["item_effect"] == item["item_effect"]))
 			{
@@ -67,6 +70,7 @@ public partial class Global : Node
 				return true;
 			}
 		}
+		
 		//if no spots are available, returns false.
 		return false;
 	}

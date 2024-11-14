@@ -20,7 +20,6 @@ public partial class Player : CharacterBody2D
 	public CanvasLayer Presstalk;
 	//Global Reference
 	public Global glbl;
-	public bool EnableMovement = true;
 	/*
 	Summary:
 	Called when the node enters the scene tree for the first time. 
@@ -47,27 +46,26 @@ public partial class Player : CharacterBody2D
 	*/
 	public override void _PhysicsProcess(double delta)
 	{
-		if(EnableMovement == true){
-			Vector2 velocity = Velocity;
+		Vector2 velocity = Velocity;
 
-			//Moves at constant speed based on the vector of the input. If no movement, decelerates to 0. 
-			//Note: Character currently decelerates in one frame, effectively stopping instantly.
-			Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-			if (direction != Vector2.Zero)
-			{
-				velocity.X = direction.X * Speed;
-				velocity.Y = direction.Y * Speed;
-			}
-			else
-			{
-				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-				velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
-			}
-
-			Velocity = velocity;
-			MoveAndSlide();
-			UpdateAnimations();
+		//Moves at constant speed based on the vector of the input. If no movement, decelerates to 0. 
+		//Note: Character currently decelerates in one frame, effectively stopping instantly.
+		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		if (direction != Vector2.Zero)
+		{
+			velocity.X = direction.X * Speed;
+			velocity.Y = direction.Y * Speed;
 		}
+		else
+		{
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+		}
+
+		Velocity = velocity;
+		MoveAndSlide();
+		UpdateAnimations();
+		
 	}
 	/*
 	Summary:
@@ -100,8 +98,7 @@ public partial class Player : CharacterBody2D
 		if(@event.IsActionPressed("ui_inventory"))
 		{
 			inventory_ui.Visible = !inventory_ui.Visible;
-			EnableMovement = !EnableMovement;
-			//GetTree().Paused = !GetTree().Paused;
+			GetTree().Paused = !GetTree().Paused;
 		}
 	}
 }
