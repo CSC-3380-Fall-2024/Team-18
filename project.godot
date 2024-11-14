@@ -20,6 +20,15 @@ config/icon="res://icon.svg"
 
 Global="*res://Scripts/Global.cs"
 CustomSignals="*res://CustomSignals/CustomSignals.cs"
+State="*res://Scripts/State.cs"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
+window/dpi/allow_hidpi=false
+
 [dotnet]
 
 project/assembly_name="Dialogue"
