@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqxelgmpchfbk"]
+
+[ext_resource type="Script" path="res://Npc.cs" id="1_a80n3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bc5pg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_45ug0"]
+size = Vector2(312, 226)
+
+[node name="NPC" type="Area2D"]
+script = ExtResource("1_a80n3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(736, 304)
+scale = Vector2(-295, 213)
+texture = SubResource("PlaceholderTexture2D_bc5pg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(740, 304)
+shape = SubResource("RectangleShape2D_45ug0")
