@@ -69,7 +69,7 @@ public partial class Npc: CharacterBody2D{
 			BattleTest.player = player;
 			
 			
-			GD.Print("yay");
+			//GD.Print("yay");
 			AddChild(BattleTest);
 			
 			
