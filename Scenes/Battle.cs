@@ -62,7 +62,7 @@ public partial class Battle : Control
 		
 		display_text($"A wild {enemy.name} appears.");
 		await ToSignal(this, nameof(TextClosed));
-		GD.Print("Fuck1");
+		//GD.Print("Fuck1");
 		GetNode<Panel>("Actions").Show();
 	}
 	
@@ -123,7 +123,7 @@ public partial class Battle : Control
 	}
 	public async void On_attack_pressed()
 	{
-		display_text($"You Attack with your weapon, dealing {state.damage} damage."); //Weapon names can change here. DMG can change in the state.cs. Still not 100% sure how. Probably by changing it in the main.cs
+		display_text($"You Attack with your weapon, dealing {state.damage} damage."); //Weapon names could change here. DMG can change in the state.cs. Still not 100% sure how. Probably by changing it in the main.cs
 		await ToSignal(this, nameof(TextClosed));
 		current_enemy_health = Math.Max(0, current_enemy_health - state.damage);
 		setHealth(GetNode<ProgressBar>("EnemyContainer/ProgressBar"), current_enemy_health, MAX_ENEMY_HEALTH);
