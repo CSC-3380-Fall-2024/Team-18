@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://boiei36bvh15t"]
 
-[ext_resource type="Script" path="res://Scenes/Battle.cs" id="1_m7xug"]
-[ext_resource type="Texture2D" uid="uid://dtyhf5gx3vs4h" path="res://Assets/Tilesets/battleback4.png" id="1_ndhic"]
+[ext_resource type="Script" path="res://Scripts/Battle.cs" id="1_m7xug"]
+[ext_resource type="Texture2D" uid="uid://dq74fe5m072xs" path="res://Assets/Tilesets/battleback4.png" id="1_ndhic"]
 [ext_resource type="FontFile" uid="uid://do6g4q03tl1gj" path="res://Assets/Fonts/Schrödinger.ttf" id="3_b7en8"]
-[ext_resource type="Texture2D" uid="uid://bs3i7bjt3egjl" path="res://Robot NPC Idle.png" id="3_yef0h"]
+[ext_resource type="Texture2D" uid="uid://dvydhysaebb1i" path="res://Skylurs-assets/Skylurs-Assets/robot-npc-pixilart.png" id="3_yef0h"]
 [ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="5_ykgq8"]
 [ext_resource type="PackedScene" uid="uid://b38fc6lolv0f3" path="res://Scenes/inventory_ui.tscn" id="6_du5t8"]
 

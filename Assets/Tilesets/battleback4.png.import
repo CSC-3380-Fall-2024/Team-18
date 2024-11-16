@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck6c7esmedsg3"
-path="res://.godot/imported/pixilart-drawing_9.png-e788f6584b797ef540dc090fda927da2.ctex"
+uid="uid://dq74fe5m072xs"
+path="res://.godot/imported/battleback4.png-f03f8c71720edcfb62d62cb29e12fb50.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Skylurs-assets/Skylurs-Assets/pixilart-drawing_9.png"
-dest_files=["res://.godot/imported/pixilart-drawing_9.png-e788f6584b797ef540dc090fda927da2.ctex"]
+source_file="res://Assets/Tilesets/battleback4.png"
+dest_files=["res://.godot/imported/battleback4.png-f03f8c71720edcfb62d62cb29e12fb50.ctex"]
 
 [params]
 

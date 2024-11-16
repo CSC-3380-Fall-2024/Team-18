@@ -15,14 +15,14 @@ public partial class InventoryItem : Node2D
 	public Sprite2D icon_sprite;
 	//The type of item. Can be modified in godot directly ([Export])
 	[Export]
-    public string item_type { get; set; } = "";
+	public string item_type { get; set; } = "";
 	[Export]
 	public string item_name { get; set; } = "";
 	[Export]
-    public Godot.Texture2D item_texture { get; set; }
+	public Godot.Texture2D item_texture { get; set; }
 	//Classification regarding whether the item can be destroyed, as well as how it works when used.
 	[Export]
-    public string item_effect{ get; set; } = "";
+	public string item_effect{ get; set; } = "";
 	[Export]
 	public int item_price{get; set;} = 0;
 
@@ -73,14 +73,14 @@ public partial class InventoryItem : Node2D
 	public void PickupItem()
 	{
 		Dictionary<string, dynamic> item = new Dictionary<string, dynamic>
-        {
-            { "quantity", 1 },
-            { "item_type", item_type },
-            { "item_name", item_name },
-            { "item_texture", item_texture },
-            { "item_effect", item_effect },
-            { "item_price", item_price }
-        };
+		{
+			{ "quantity", 1 },
+			{ "item_type", item_type },
+			{ "item_name", item_name },
+			{ "item_texture", item_texture },
+			{ "item_effect", item_effect },
+			{ "item_price", item_price }
+		};
 		
 		if(glbl.player_node != null){
 			bool success = glbl.AddItem(item);

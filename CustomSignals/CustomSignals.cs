@@ -11,4 +11,7 @@ public partial class CustomSignals : Node
 	public delegate void InventoryUpdatedEventHandler();
 	[Signal]
 	public delegate void OnShopOpenedEventHandler();
+	// Signal that sends Item Used's Name
+	[Signal]
+	public delegate void OnItemUsedEventHandler(string ItemName);
 }

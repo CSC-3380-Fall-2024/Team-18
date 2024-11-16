@@ -36,31 +36,46 @@ public partial class Npc: CharacterBody2D{
 	}
 
 	
-	public void OnArea2DBodyEntered(Player body)
+	public void OnArea2DBodyEntered(Node2D body)
 	{
 		
 		//checks for the player specifically
-		if(body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			GD.Print("yes");
 			player_in_range = true;
 			GD.Print("Player in Range?", player_in_range);
-			body.Presstalk.Visible = true;
+			player.Presstalk.Visible = true;
 		}
-		GD.Print("Body Entered Type: ", body.GetType());
+		//GD.Print("Body Entered Type: ", body.GetType());
 	}
 
-	public void OnArea2DBodyExited(Player body)
+	public void OnArea2DBodyExited(Node2D body)
 	{
 		
-		if(body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			GD.Print("no");
 			player_in_range = false;
-			body.Presstalk.Visible = false;
+			player.Presstalk.Visible = false;
 			dialoguebox.Visible = false;
+			player.EnableMovement = false;
+			
+			//GetTree().Paused = !GetTree().Paused;
+			
+			BaseEnemy test_knight = GD.Load<BaseEnemy>("res://Scripts/test_knight.tres");
+			
+			PackedScene battleScene = GD.Load<PackedScene>("res://Scenes/battle.tscn");
+			Battle BattleTest = battleScene.Instantiate<Battle>();
+			
+			BattleTest.enemy = test_knight;
+			BattleTest.player = player;
+			
+			
+			//GD.Print("yay");
+			AddChild(BattleTest);
 		}
-		GD.Print("Body Entered Type: ", body.GetType());
+		//GD.Print("Body Entered Type: ", body.GetType());
 	}
 
 	public void UpdateAnimations(){

@@ -138,6 +138,7 @@ public partial class InventorySlot : Control
 			{
 				glbl.health = 100;
 			}
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item_name);
 		}
 
 	}

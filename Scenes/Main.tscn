@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://d0gp4y5f8q5v2" path="res://Scenes/shop_vendor.tscn" id="14_oxwga"]
 [ext_resource type="Texture2D" uid="uid://djgh5lsnmhkh" path="res://Assets/Icons/icon7.png" id="15_103r3"]
 [ext_resource type="PackedScene" uid="uid://c5d160n4s4dk6" path="res://Scenes/npc.tscn" id="16_xwidb"]
-[ext_resource type="PackedScene" path="res://Scenes/item_door.tscn" id="17_4khto"]
+[ext_resource type="PackedScene" uid="uid://bkfado5vm3wng" path="res://Scenes/item_door.tscn" id="17_4khto"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_s8ogb"]
 tile_data = PackedInt32Array(0, 65541, 0, 65536, 65541, 1, 1, 131077, 0, 65537, 131077, 1)
@@ -550,8 +550,8 @@ item_name = "bottle"
 item_texture = ExtResource("15_103r3")
 item_effect = "healing"
 
-[node name="Npc" parent="." instance=ExtResource("16_xwidb")]
-position = Vector2(547, 76)
-
 [node name="item_door" parent="." instance=ExtResource("17_4khto")]
 position = Vector2(550, 143)
+
+[node name="Npc" parent="." instance=ExtResource("16_xwidb")]
+position = Vector2(547, 76)

@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://c5d160n4s4dk6"]
 
 [ext_resource type="Script" path="res://Scripts/Npc.cs" id="1_flsb4"]
-[ext_resource type="Texture2D" uid="uid://da56j0wgg75ho" path="res://Assets/Assets/knight.png" id="2_kgmhe"]
-[ext_resource type="Texture2D" uid="uid://prkfiy7dxb6l" path="res://Assets/Assets/Icons/Dialogue_box.png" id="3_2tdce"]
+[ext_resource type="Texture2D" uid="uid://da56j0wgg75ho" path="res://Assets/knight.png" id="2_kgmhe"]
+[ext_resource type="Texture2D" uid="uid://prkfiy7dxb6l" path="res://Assets/Icons/Dialogue_box.png" id="3_2tdce"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oyfi5"]
 radius = 32.0156

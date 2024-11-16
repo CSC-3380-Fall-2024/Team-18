@@ -1,8 +1,8 @@
 [gd_scene load_steps=28 format=3 uid="uid://g7g7y5j5s5a0"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_46p2k"]
-[ext_resource type="Texture2D" uid="uid://da56j0wgg75ho" path="res://Assets/Assets/knight.png" id="2_7uybr"]
-[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Assets/Fonts/ARCADECLASSIC.TTF" id="3_7fqa5"]
+[ext_resource type="Texture2D" uid="uid://da56j0wgg75ho" path="res://Assets/knight.png" id="2_7uybr"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="3_7fqa5"]
 [ext_resource type="PackedScene" uid="uid://b38fc6lolv0f3" path="res://Scenes/inventory_ui.tscn" id="4_b27px"]
 [ext_resource type="PackedScene" uid="uid://b6e62l8jspo7" path="res://Scenes/shop_ui.tscn" id="5_p2cjx"]
 

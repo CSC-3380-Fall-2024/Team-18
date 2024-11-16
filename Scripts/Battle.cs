@@ -27,7 +27,6 @@ public partial class Battle : Control
 	//CanvasLayer for the screen that appears when you open the inventory.
 	[Export]
 	public CanvasLayer InventoryUI;
-	private State state;
 	
 	//Declare health variables at class level
 	private int current_player_health = 0;
@@ -41,16 +40,18 @@ public partial class Battle : Control
 	// Called when the node enters the scene tree for the first time.
 	public override async void _Ready()
 	{
-		enemy.defeated = false;
+		//enemy.defeated = false;
 		glbl = GetNode<Global>("/root/Global");
-		state = new State();
+		glbl.custom_signals = GetNode<CustomSignals>("/root/CustomSignals");
+		glbl.custom_signals.OnItemUsed += OnItemUsed;
+		//state = new State();
 		setHealth(GetNode<ProgressBar>("EnemyContainer/ProgressBar"), enemy.health, enemy.health);
-		setHealth(GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar"), state.current_health, state.max_health);
+		setHealth(GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar"), glbl.health, glbl.max_health);
 		GetNode<TextureRect>("EnemyContainer/Enemy").Texture = (Texture2D)enemy.texture;
 		
-		current_player_health = state.current_health;
+		current_player_health = glbl.health;
 		current_enemy_health = enemy.health;
-		max_player_health = state.max_health;
+		max_player_health = glbl.max_health;
 		MAX_ENEMY_HEALTH = enemy.health;
 		
 		AddUserSignal(nameof(TextClosed));
@@ -64,6 +65,12 @@ public partial class Battle : Control
 		await ToSignal(this, nameof(TextClosed));
 		//GD.Print("Fuck1");
 		GetNode<Panel>("Actions").Show();
+	}
+	public void OnItemUsed(string ItemName){
+		GD.Print("Item Used.");
+		GD.Print($"{ItemName}");
+		GetNode<CanvasLayer>("InventoryUI").Visible = false;
+		
 	}
 	
 	public void setHealth(ProgressBar progressBar, int current_health, int max_health)
@@ -108,6 +115,7 @@ public partial class Battle : Control
 			if (current_player_health == 0) 
 			{
 				display_text("You Lose.");
+				player.EnableMovement = true;
 				QueueFree();
 			}
 		}
@@ -118,13 +126,15 @@ public partial class Battle : Control
 	{
 		display_text("Escaped Successfully!");
 		await ToSignal(this, nameof(TextClosed));
+		glbl.health = current_player_health;
+		player.EnableMovement = true;
 		QueueFree();
 	}
 	public async void On_attack_pressed()
 	{
-		display_text($"You Attack with your weapon, dealing {state.damage} damage."); //Weapon names could change here. DMG can change in the state.cs. Still not 100% sure how. Probably by changing it in the main.cs
+		display_text($"You Attack with your weapon, dealing {glbl.damage} damage."); //Weapon names could change here. DMG can change in the state.cs. Still not 100% sure how. Probably by changing it in the main.cs
 		await ToSignal(this, nameof(TextClosed));
-		current_enemy_health = Math.Max(0, current_enemy_health - state.damage);
+		current_enemy_health = Math.Max(0, current_enemy_health - glbl.damage);
 		setHealth(GetNode<ProgressBar>("EnemyContainer/ProgressBar"), current_enemy_health, MAX_ENEMY_HEALTH);
 		
 		if (current_enemy_health == 0) 
@@ -132,7 +142,9 @@ public partial class Battle : Control
 			display_text("You Win.");
 			enemy.defeated = true;
 			await ToSignal(this, nameof(TextClosed));
+			glbl.health = current_player_health;
 			GetParent().QueueFree();
+			player.EnableMovement = true;
 			QueueFree();
 		}
 		EnemyTurn();
@@ -150,10 +162,10 @@ public partial class Battle : Control
 		GetNode<CanvasLayer>("InventoryUI").Visible = true;
 		//GetTree().Paused = !GetTree().Paused;
 		//JUST FOR DEMO
-		await Task.Delay(2000);
-		GetNode<CanvasLayer>("InventoryUI").Visible = false;
+		
 		
 	}
+	
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

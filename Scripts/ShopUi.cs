@@ -68,4 +68,3 @@ public partial class ShopUi : Control
 		}
 	}
 }
-

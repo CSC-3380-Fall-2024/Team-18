@@ -8,7 +8,7 @@ public partial class ShopVendor : Node2D
 	public override void _Ready()
 	{
 		glbl = GetNode<Global>("/root/Global");
-		var texture_loader = GD.Load<Texture2D>("res://Assets/Assets/Icons/icon1.png"); 
+		var texture_loader = GD.Load<Texture2D>("res://Assets/Icons/icon1.png"); 
 		Dictionary<string, dynamic> item = new Dictionary<string, dynamic>();
 		item.Add("quantity", 1);
 		item.Add("item_type", "fish");

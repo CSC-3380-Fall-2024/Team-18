@@ -29,9 +29,14 @@ public partial class Player : CharacterBody2D
 	public Label inventory_health;
 
 	public CanvasLayer Presstalk;
+	//Pause Alternative
+	public bool EnableMovement = true;
+	
 	//Global Reference
 	//Global Reference
 	public Global glbl;
+	
+	
 	/*
 	Summary:
 	Called when the node enters the scene tree for the first time. 
@@ -49,6 +54,7 @@ public partial class Player : CharacterBody2D
 		karma_label = GetNode<Label>("KarmaUI/ColorRect/Label");
 		inventory_money = GetNode<Label>("InventoryUI/ColorRect/Money");
 		inventory_health = GetNode<Label>("InventoryUI/ColorRect/Health");
+		Presstalk = GetNode<CanvasLayer>("Presstalk");
 
 	}
 	
@@ -66,20 +72,22 @@ public partial class Player : CharacterBody2D
 		//Moves at constant speed based on the vector of the input. If no movement, decelerates to 0. 
 		//Note: Character currently decelerates in one frame, effectively stopping instantly.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
-		{
-			velocity.X = direction.X * Speed;
-			velocity.Y = direction.Y * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
-		}
+		if (EnableMovement == true){
+			if (direction != Vector2.Zero)
+			{
+				velocity.X = direction.X * Speed;
+				velocity.Y = direction.Y * Speed;
+			}
+			else
+			{
+				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+				velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+			}
 
-		Velocity = velocity;
-		MoveAndSlide();
-		UpdateAnimations();
+			Velocity = velocity;
+			MoveAndSlide();
+			UpdateAnimations();
+			}
 		
 	}
 	/*
@@ -112,22 +120,22 @@ public partial class Player : CharacterBody2D
 	{
 		if(@event.IsActionPressed("ui_inventory"))
 		{
+			EnableMovement = !EnableMovement;
 			inventory_ui.Visible = !inventory_ui.Visible;
 			inventory_money.Text = "Money = " + glbl.money.ToString();
 			inventory_health.Text = "Health = " + glbl.health.ToString();
-			GetTree().Paused = !GetTree().Paused;
 		}
 		
 		if(@event.IsActionPressed("ui_interact"))
 		{
+			EnableMovement = !EnableMovement;
 			shop_ui.Visible = !shop_ui.Visible;
-			GetTree().Paused = !GetTree().Paused;
 			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnShopOpened));
 		}
 		if(@event.IsActionPressed("ui_karma"))
 		{
+			EnableMovement = !EnableMovement;
 			karma_ui.Visible = !karma_ui.Visible;
-			GetTree().Paused = !GetTree().Paused;
 			karma_label.Text = "Karma = " + glbl.karma.ToString() + "\n";
 		}
 	}
