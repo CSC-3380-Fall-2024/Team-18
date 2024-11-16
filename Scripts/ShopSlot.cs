@@ -5,7 +5,7 @@ using System.Collections.Generic;
 	Summary:
 	Script for placing the inventory items into the correct slots. Currently untouched.
 	*/
-public partial class InventorySlot : Control
+public partial class ShopSlot : Control
 {
 	//Inventory icon for item
 	public Sprite2D icon;
@@ -17,6 +17,7 @@ public partial class InventorySlot : Control
 	public Label item_name;
 	//Label for the type of the item; NOT the type itself.
 	public Label item_type;
+	public Label item_price;
 	public ColorRect details_panel;
 	public ColorRect usage_panel;
 	//Global Reference
@@ -28,10 +29,10 @@ public partial class InventorySlot : Control
 	public override void _Ready()
 	{
 		icon = GetNode<Sprite2D>("Inner_Border/ItemIcon");
-		quantity_label = GetNode<Label>("Inner_Border/ItemQuantity");
 		item_effect = GetNode<Label>("Outer_Border2/Details_Panel/Item_Effect");
 		item_name = GetNode<Label>("Outer_Border2/Details_Panel/Item_Name");
 		item_type = GetNode<Label>("Outer_Border2/Details_Panel/Item_Type");
+		item_price = GetNode<Label>("Usage_Panel/ItemPrice");
 		details_panel = GetNode<ColorRect>("Outer_Border2");
 		usage_panel = GetNode<ColorRect>("Usage_Panel");
 		glbl = GetNode<Global>("/root/Global");
@@ -87,7 +88,7 @@ public partial class InventorySlot : Control
 	public void SetEmpty()
 	{
 		icon.Texture = null;
-		quantity_label.Text = "";
+		item_price.Text = "";
 	}
 	/*
 	Summary:
@@ -100,7 +101,7 @@ public partial class InventorySlot : Control
 	{
 		item = new_item;
 		icon.Texture = new_item["item_texture"];
-		quantity_label.Text = item["quantity"].ToString();
+		item_price.Text = "$" + item["item_price"].ToString();
 		item_name.Text = item["item_name"].ToString();
 		item_type.Text = item["item_type"].ToString();
 		if (item["item_effect"] != "")
@@ -117,28 +118,12 @@ public partial class InventorySlot : Control
 	Summary:
 	If the discard button is pressed, removes the current item from the inventory.
 	*/
-	public void OnDiscardButtonPressed()
+	public void OnPurchaseButtonPressed()
 	{
-		if(item != null){
-			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+		GD.Print("Signal recieved");
+		if(item != null && item["item_price"] < glbl.money){
+			glbl.AddItem(item);
+			glbl.money -= item["item_price"];
 		}
-	}
-	/*
-	Summary:
-	If the used button is pressed, check for if the kind of item is "healing." If it is, add 50 hp and remove the item.
-	Note: This code is extremely bare-bones and just serves to work for the demo. This will be overhauled with more item types via an item resource.
-	*/
-	public void OnUseButtonPressed()
-	{
-		if(item["item_effect"] == "healing")
-		{
-			glbl.RemoveItem(item["item_type"], item["item_effect"]);
-			glbl.health += 50;
-			if(glbl.health >= 100)
-			{
-				glbl.health = 100;
-			}
-		}
-
 	}
 }

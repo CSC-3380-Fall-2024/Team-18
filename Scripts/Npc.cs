@@ -9,6 +9,7 @@ public partial class Npc: CharacterBody2D{
 	
 	bool player_in_range = false;
 	[Export] public CanvasLayer dialoguebox;
+	public Global glbl;
 
 	//[Export] public CanvasLayer Presstalk;
 	
@@ -17,6 +18,7 @@ public partial class Npc: CharacterBody2D{
 			dialoguebox = GetNode<CanvasLayer>("dialoguebox");
 			//Presstalk = GetNode<CanvasLayer>("Presstalk");
 			char_anim.Play("idle");
+			glbl = GetNode<Global>("/root/Global");
 			//dialoguebox.Visible = false;
 			
 			//Presstalk.Visible = false;
@@ -38,7 +40,7 @@ public partial class Npc: CharacterBody2D{
 	{
 		
 		//checks for the player specifically
-		if(body is Player player && body.IsInGroup("Player"))
+		if(body.IsInGroup("Player"))
 		{
 			GD.Print("yes");
 			player_in_range = true;
@@ -51,7 +53,7 @@ public partial class Npc: CharacterBody2D{
 	public void OnArea2DBodyExited(Player body)
 	{
 		
-		if(body is Player player && body.IsInGroup("Player"))
+		if(body.IsInGroup("Player"))
 		{
 			GD.Print("no");
 			player_in_range = false;
@@ -77,6 +79,7 @@ public partial class Npc: CharacterBody2D{
 		talking = true;
 		dialoguebox.Visible = !dialoguebox.Visible;
 		//Presstalk.Visible = !Presstalk.Visible;
+		glbl.door = true;
 		GD.Print("Enter.");
 			
 

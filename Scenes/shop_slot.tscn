@@ -1,14 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://b61j61dtc2dhb"]
+[gd_scene load_steps=6 format=3 uid="uid://wrpc8nr3yxim"]
 
-[ext_resource type="Script" path="res://Scripts/InventorySlot.cs" id="1_ghgsl"]
-[ext_resource type="Texture2D" uid="uid://dgdxi620onjfe" path="res://Assets/Icons/icon8.png" id="2_25ykw"]
-[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="3_ap3gp"]
+[ext_resource type="Script" path="res://Scripts/ShopSlot.cs" id="1_h1ukv"]
+[ext_resource type="Texture2D" uid="uid://dgdxi620onjfe" path="res://Assets/Assets/Icons/icon8.png" id="2_0di38"]
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Assets/Fonts/ARCADECLASSIC.TTF" id="3_xv67g"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o85s0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_41ob4"]
 
-[node name="Inventory_Slot" type="Control"]
+[node name="Shop_Slot" type="Control"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 0
@@ -16,7 +16,7 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 110.0
 offset_bottom = 110.0
-script = ExtResource("1_ghgsl")
+script = ExtResource("1_h1ukv")
 
 [node name="Outer_Border" type="ColorRect" parent="."]
 layout_mode = 1
@@ -25,7 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.596078, 0.933333, 0.8, 1)
+color = Color(0.596078, 0.933333, 1, 1)
 
 [node name="Inner_Border" type="ColorRect" parent="."]
 layout_mode = 1
@@ -43,19 +43,9 @@ grow_vertical = 2
 color = Color(0.481789, 0.481789, 0.481789, 1)
 
 [node name="ItemIcon" type="Sprite2D" parent="Inner_Border"]
-position = Vector2(50, 50)
+position = Vector2(45, 45)
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("2_25ykw")
-
-[node name="ItemQuantity" type="Label" parent="Inner_Border"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 45.0
-offset_bottom = 51.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_ap3gp")
-theme_override_font_sizes/font_size = 50
-text = "1"
+texture = ExtResource("2_0di38")
 
 [node name="Item_Button" type="Button" parent="."]
 layout_mode = 1
@@ -97,7 +87,7 @@ offset_left = 5.0
 offset_right = 45.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
-theme_override_fonts/font = ExtResource("3_ap3gp")
+theme_override_fonts/font = ExtResource("3_xv67g")
 theme_override_font_sizes/font_size = 40
 text = "Name"
 
@@ -112,7 +102,7 @@ offset_right = 45.0
 offset_bottom = 11.5
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 0.784314)
-theme_override_fonts/font = ExtResource("3_ap3gp")
+theme_override_fonts/font = ExtResource("3_xv67g")
 theme_override_font_sizes/font_size = 40
 text = "type"
 
@@ -126,7 +116,7 @@ offset_top = -23.0
 offset_right = 45.0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 0.588235)
-theme_override_fonts/font = ExtResource("3_ap3gp")
+theme_override_fonts/font = ExtResource("3_xv67g")
 theme_override_font_sizes/font_size = 40
 text = "Effect"
 
@@ -138,7 +128,7 @@ offset_right = 240.0
 offset_bottom = -20.0
 color = Color(0.596078, 0.933333, 0.8, 1)
 
-[node name="Use_Button" type="Button" parent="Usage_Panel"]
+[node name="Purchase_Button" type="Button" parent="Usage_Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -148,29 +138,22 @@ offset_top = 10.0
 offset_right = 115.0
 offset_bottom = 59.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("3_ap3gp")
+theme_override_fonts/font = ExtResource("3_xv67g")
 theme_override_font_sizes/font_size = 40
-text = "USE"
+text = "PURCHASE"
 
-[node name="Discard_Button" type="Button" parent="Usage_Panel"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -115.0
-offset_top = -48.0
-offset_right = 115.0
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("3_ap3gp")
-theme_override_font_sizes/font_size = 40
-text = "DISCARD"
+[node name="ItemPrice" type="Label" parent="Usage_Panel"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 69.0
+offset_right = 47.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_xv67g")
+theme_override_font_sizes/font_size = 50
+text = "1"
 
 [connection signal="mouse_entered" from="Item_Button" to="." method="OnItemButtonMouseEntered"]
 [connection signal="mouse_exited" from="Item_Button" to="." method="OnItemButtonMouseExited"]
 [connection signal="pressed" from="Item_Button" to="." method="OnItemButtonPressed"]
-[connection signal="pressed" from="Usage_Panel/Use_Button" to="." method="OnUseButtonPressed"]
-[connection signal="pressed" from="Usage_Panel/Discard_Button" to="." method="OnDiscardButtonPressed"]
+[connection signal="pressed" from="Usage_Panel/Purchase_Button" to="." method="OnPurchaseButtonPressed"]

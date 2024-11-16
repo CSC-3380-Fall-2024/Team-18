@@ -21,7 +21,7 @@ public partial class ItemDoor : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (player_in_range && Input.IsActionJustPressed("open") && glbl.door == false)
+		if (player_in_range && Input.IsActionJustPressed("open") && glbl.door == true)
 		{
 			QueueFree();
 		}

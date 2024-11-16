@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://c5d160n4s4dk6"]
 
 [ext_resource type="Script" path="res://Scripts/Npc.cs" id="1_flsb4"]
-[ext_resource type="Texture2D" uid="uid://cl33cgdbic0y2" path="res://Assets/Icons/knight.png" id="2_kgmhe"]
-[ext_resource type="Texture2D" uid="uid://bgennecnluipi" path="res://Assets/Icons/Dialogue_box.png" id="3_2tdce"]
+[ext_resource type="Texture2D" uid="uid://da56j0wgg75ho" path="res://Assets/Assets/knight.png" id="2_kgmhe"]
+[ext_resource type="Texture2D" uid="uid://prkfiy7dxb6l" path="res://Assets/Assets/Icons/Dialogue_box.png" id="3_2tdce"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oyfi5"]
 radius = 32.0156
@@ -114,8 +114,8 @@ offset_bottom = 150.0
 layout_mode = 0
 offset_left = -56.0
 offset_top = -4.0
-offset_right = 131.0
-offset_bottom = 64.0
+offset_right = 159.0
+offset_bottom = 91.0
 texture = ExtResource("3_2tdce")
 region_rect = Rect2(0, 0, 100, 40)
 patch_margin_left = 3
@@ -128,20 +128,22 @@ modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_left = 3.0
 offset_top = 2.0
-offset_right = 68.0
-offset_bottom = 27.0
+offset_right = 278.0
+offset_bottom = 82.0
 scale = Vector2(0.4, 0.4)
-text = "Name:"
+theme_override_font_sizes/normal_font_size = 50
+text = "Brian:"
 
 [node name="Dialogue" type="RichTextLabel" parent="dialoguebox/DialogueBox/NinePatchRect"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 12.0
-offset_top = 11.0
-offset_right = 309.0
-offset_bottom = 94.0
+offset_left = 4.0
+offset_top = 35.0
+offset_right = 701.0
+offset_bottom = 172.0
 scale = Vector2(0.3, 0.3)
-text = "Dialogue"
+theme_override_font_sizes/normal_font_size = 50
+text = "Here's that block remover u asked for"
 
 [connection signal="body_entered" from="Detection" to="." method="OnArea2DBodyEntered"]
 [connection signal="body_exited" from="Detection" to="." method="OnArea2DBodyExited"]
