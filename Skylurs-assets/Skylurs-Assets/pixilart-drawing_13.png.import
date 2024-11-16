@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lnapchy6nmmr"
-path="res://.godot/imported/Main MC Idle.png-2d55b92e5b2840d5cb9e20f3f8ae1991.ctex"
+uid="uid://c86qvqbl03yoj"
+path="res://.godot/imported/pixilart-drawing_13.png-dc62a0c444218e4520a6fd45f929862d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Main MC Idle.png"
-dest_files=["res://.godot/imported/Main MC Idle.png-2d55b92e5b2840d5cb9e20f3f8ae1991.ctex"]
+source_file="res://Skylurs-assets/Skylurs-Assets/pixilart-drawing_13.png"
+dest_files=["res://.godot/imported/pixilart-drawing_13.png-dc62a0c444218e4520a6fd45f929862d.ctex"]
 
 [params]
 

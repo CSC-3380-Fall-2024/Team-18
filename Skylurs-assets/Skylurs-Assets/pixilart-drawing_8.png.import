@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o7p2ba8s4tpj"
-path="res://.godot/imported/General BG_1.png-924596ee19fb9c0766ce625087527e31.ctex"
+uid="uid://crpk0fjgu552s"
+path="res://.godot/imported/pixilart-drawing_8.png-b97c8b72c7e42a0377c02462ee772f2f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://General BG_1.png"
-dest_files=["res://.godot/imported/General BG_1.png-924596ee19fb9c0766ce625087527e31.ctex"]
+source_file="res://Skylurs-assets/Skylurs-Assets/pixilart-drawing_8.png"
+dest_files=["res://.godot/imported/pixilart-drawing_8.png-b97c8b72c7e42a0377c02462ee772f2f.ctex"]
 
 [params]
 

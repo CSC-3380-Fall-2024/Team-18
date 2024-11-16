@@ -9,6 +9,7 @@ public partial class Npc: CharacterBody2D{
 	
 	bool player_in_range = false;
 	[Export] public CanvasLayer dialoguebox;
+	public Global glbl;
 
 	//[Export] public CanvasLayer Presstalk;
 	
@@ -17,6 +18,7 @@ public partial class Npc: CharacterBody2D{
 			dialoguebox = GetNode<CanvasLayer>("dialoguebox");
 			//Presstalk = GetNode<CanvasLayer>("Presstalk");
 			char_anim.Play("idle");
+			glbl = GetNode<Global>("/root/Global");
 			//dialoguebox.Visible = false;
 			
 			//Presstalk.Visible = false;
@@ -26,7 +28,7 @@ public partial class Npc: CharacterBody2D{
 	THIS IS JUST TO TEST. PLEASE REMOVE IF YOU GET WORKING
 	*/
 	public override void _Process(double delta){
-		if (player_in_range && Input.IsActionJustPressed("ui_add"))
+		if (player_in_range && Input.IsActionJustPressed("talk"))
 		{
 			GD.Print("hello for now");
 			Talk();
@@ -34,27 +36,28 @@ public partial class Npc: CharacterBody2D{
 	}
 
 	
-	public void OnArea2DBodyEntered(Player body)
+	public void OnArea2DBodyEntered(Node2D body)
 	{
-		GD.Print("Body Entered Type: ", body.GetType());
+		
 		//checks for the player specifically
-		if(body is Player player && body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			GD.Print("yes");
 			player_in_range = true;
 			GD.Print("Player in Range?", player_in_range);
-			body.Presstalk.Visible = true;
+			player.Presstalk.Visible = true;
 		}
+		//GD.Print("Body Entered Type: ", body.GetType());
 	}
 
-	public void OnArea2DBodyExited(Player body)
+	public void OnArea2DBodyExited(Node2D body)
 	{
-		GD.Print("Body Entered Type: ", body.GetType());
-		if(body is Player player && body.IsInGroup("Player"))
+		
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			GD.Print("no");
 			player_in_range = false;
-			body.Presstalk.Visible = false;
+			player.Presstalk.Visible = false;
 			dialoguebox.Visible = false;
 			player.EnableMovement = false;
 			
@@ -69,13 +72,11 @@ public partial class Npc: CharacterBody2D{
 			BattleTest.player = player;
 			
 			
-			GD.Print("yay");
+			//GD.Print("yay");
 			AddChild(BattleTest);
-			
-			
 		}
+		//GD.Print("Body Entered Type: ", body.GetType());
 	}
-	
 
 	public void UpdateAnimations(){
 			if(talking == true){
@@ -93,6 +94,7 @@ public partial class Npc: CharacterBody2D{
 		talking = true;
 		dialoguebox.Visible = !dialoguebox.Visible;
 		//Presstalk.Visible = !Presstalk.Visible;
+		glbl.door = true;
 		GD.Print("Enter.");
 			
 

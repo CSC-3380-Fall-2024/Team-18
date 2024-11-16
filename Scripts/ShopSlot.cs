@@ -32,7 +32,7 @@ public partial class ShopSlot : Control
 		item_effect = GetNode<Label>("Outer_Border2/Details_Panel/Item_Effect");
 		item_name = GetNode<Label>("Outer_Border2/Details_Panel/Item_Name");
 		item_type = GetNode<Label>("Outer_Border2/Details_Panel/Item_Type");
-		item_price = GetNode<Label>("Inner_Border/ItemPrice");
+		item_price = GetNode<Label>("Usage_Panel/ItemPrice");
 		details_panel = GetNode<ColorRect>("Outer_Border2");
 		usage_panel = GetNode<ColorRect>("Usage_Panel");
 		glbl = GetNode<Global>("/root/Global");
@@ -55,6 +55,7 @@ public partial class ShopSlot : Control
 		if (item != null)
 		{
 			usage_panel.Visible = !usage_panel.Visible;
+			details_panel.Visible = !details_panel.Visible;
 		}
 	}
 	/*

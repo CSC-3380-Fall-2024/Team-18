@@ -14,9 +14,16 @@ public partial class Global : Node
 {
 	// Inventory array, stores all items as well as their data (quantities, types, etc.)
 	public dynamic[] inventory = new dynamic[30];
+	public dynamic[] quests = new dynamic[10];
 	public dynamic[] shop = new dynamic[10];
 	public int money = 1000;
+	//Exportable Battle Stats
+	public int health = 50;
+	public int max_health = 100;
+	public int damage = 10;
+	
 	public int karma = 0;
+	public bool door = false;
 	//Signal library; uses the CustomSignals script.
 	public CustomSignals custom_signals;
 	//The player. Starts as null, and refers to the player via method when the game starts to run.
@@ -24,6 +31,7 @@ public partial class Global : Node
 
 	 //Loads the 'inventory_slot' scene, and stores it here.
 	 public PackedScene inventory_slot_scene;
+	 //Loads the 'shop_slot' scene, and stores it here.
 	 public PackedScene shop_slot_scene;
 
 	//Global Singleton reference.

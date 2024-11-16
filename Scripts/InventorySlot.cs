@@ -5,15 +5,8 @@ using System.Collections.Generic;
 	Summary:
 	Script for placing the inventory items into the correct slots. Currently untouched.
 	*/
-	
-[Signal]
-public delegate void ItemUsed(string item_used);
-	
-
 public partial class InventorySlot : Control
 {
-	
-
 	//Inventory icon for item
 	public Sprite2D icon;
 	//Label for the amount of items; NOT the quantity itself.
@@ -42,10 +35,6 @@ public partial class InventorySlot : Control
 		details_panel = GetNode<ColorRect>("Outer_Border2");
 		usage_panel = GetNode<ColorRect>("Usage_Panel");
 		glbl = GetNode<Global>("/root/Global");
-		details_panel.Visible = false;
-		usage_panel.Visible = false;
-		
-		AddUserSignal(nameof(ItemUsed));
 		
 
 	}
@@ -65,6 +54,7 @@ public partial class InventorySlot : Control
 		if (item != null)
 		{
 			usage_panel.Visible = !usage_panel.Visible;
+			details_panel.Visible = !details_panel.Visible;
 		}
 	}
 	/*
@@ -129,31 +119,27 @@ public partial class InventorySlot : Control
 	*/
 	public void OnDiscardButtonPressed()
 	{
-		if(item_name != null){
+		if(item != null){
 			glbl.RemoveItem(item["item_type"], item["item_effect"]);
 		}
 	}
-	
+	/*
+	Summary:
+	If the used button is pressed, check for if the kind of item is "healing." If it is, add 50 hp and remove the item.
+	Note: This code is extremely bare-bones and just serves to work for the demo. This will be overhauled with more item types via an item resource.
+	*/
 	public void OnUseButtonPressed()
 	{
-		if(item_name != null){
-			string item_used = GetNode<Label>("Outer_Border2/Details_Panel/Item_Name").Text;
-			EmitSignal(nameof(ItemUsed),item_used);
-			glbl.RemoveItem(item["item_type"], item["item_effect"]);
-			GD.Print($"{item_used}");
-			//HIDE THE INVENTORY. NOT 100% HOW RN
-			//GetTree().Root.GetNode<CanvasLayer>("InventoryUI").Visible = false;
-		}
-	}
-	
-	public override void _Input(InputEvent @event) 
-	{
-		if (Input.IsMouseButtonPressed(MouseButton.Left))
+		if(item["item_effect"] == "healing")
 		{
-			if(!usage_panel.GetGlobalRect().HasPoint(GetGlobalMousePosition()))
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			glbl.health += 50;
+			if(glbl.health >= 100)
 			{
-				usage_panel.Visible = false;
+				glbl.health = 100;
 			}
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item_name);
 		}
+
 	}
 }

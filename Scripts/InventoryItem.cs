@@ -15,17 +15,17 @@ public partial class InventoryItem : Node2D
 	public Sprite2D icon_sprite;
 	//The type of item. Can be modified in godot directly ([Export])
 	[Export]
-    public string item_type { get; set; } = "";
+	public string item_type { get; set; } = "";
 	[Export]
 	public string item_name { get; set; } = "";
 	[Export]
-    public Godot.Texture2D item_texture { get; set; }
+	public Godot.Texture2D item_texture { get; set; }
 	//Classification regarding whether the item can be destroyed, as well as how it works when used.
 	[Export]
-    public string item_effect{ get; set; } = "";
+	public string item_effect{ get; set; } = "";
+	[Export]
+	public int item_price{get; set;} = 0;
 
-	//Links to the scene for this script.
-	string scene_path = "res://Scenes/Inventory_Item:tscn";
 	//Global Reference
 	public Global glbl;
 	bool player_in_range = false;
@@ -72,20 +72,21 @@ public partial class InventoryItem : Node2D
 	*/
 	public void PickupItem()
 	{
-		Dictionary<string, dynamic> item = new Dictionary<string, dynamic>();
-		item.Add("quantity", 1);
-		item.Add("item_type", item_type);
-		item.Add("item_name", item_name);
-		item.Add("item_texture", item_texture);
-		item.Add("item_effect", item_effect);
-		item.Add("scene_path", scene_path);
+		Dictionary<string, dynamic> item = new Dictionary<string, dynamic>
+		{
+			{ "quantity", 1 },
+			{ "item_type", item_type },
+			{ "item_name", item_name },
+			{ "item_texture", item_texture },
+			{ "item_effect", item_effect },
+			{ "item_price", item_price }
+		};
 		
 		if(glbl.player_node != null){
 			bool success = glbl.AddItem(item);
 			if(success)
 			{
 				//Item is deleted from scene here.
-				glbl.open = true;
 				QueueFree();
 			}
 		}

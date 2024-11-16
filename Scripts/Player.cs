@@ -16,8 +16,7 @@ public partial class Player : CharacterBody2D
 	//CanvasLayer for the screen that appears when you open the inventory.
 	[Export]
 	public CanvasLayer inventory_ui;
-	[Export]
-	public CanvasLayer Presstalk;
+
 	[Export]
 	public CanvasLayer shop_ui;
 	[Export]
@@ -26,11 +25,18 @@ public partial class Player : CharacterBody2D
 	public Label karma_label;
 	[Export]
 	public Label inventory_money;
- 	[Export]
+	[Export]
 	public Label inventory_health;
+
+	public CanvasLayer Presstalk;
+	//Pause Alternative
+	public bool EnableMovement = true;
+	
+	//Global Reference
 	//Global Reference
 	public Global glbl;
-	public bool EnableMovement = true;
+	
+	
 	/*
 	Summary:
 	Called when the node enters the scene tree for the first time. 
@@ -43,14 +49,13 @@ public partial class Player : CharacterBody2D
 		glbl.SetPlayerReference(this);
 		interact_ui = GetNode<CanvasLayer>("InteractUI");
 		inventory_ui = GetNode<CanvasLayer>("InventoryUI");
-		Presstalk = GetNode<CanvasLayer>("Presstalk");
-		interact_ui.Visible = false;
-		Presstalk.Visible = false;
 		shop_ui = GetNode<CanvasLayer>("ShopUI");
 		karma_ui = GetNode<CanvasLayer>("KarmaUI");
 		karma_label = GetNode<Label>("KarmaUI/ColorRect/Label");
 		inventory_money = GetNode<Label>("InventoryUI/ColorRect/Money");
-  		inventory_health = GetNode<Label>("InventoryUI/ColorRect/Health");
+		inventory_health = GetNode<Label>("InventoryUI/ColorRect/Health");
+		Presstalk = GetNode<CanvasLayer>("Presstalk");
+
 	}
 	
 	/*
@@ -62,12 +67,12 @@ public partial class Player : CharacterBody2D
 	*/
 	public override void _PhysicsProcess(double delta)
 	{
-		if(EnableMovement == true){
-			Vector2 velocity = Velocity;
+		Vector2 velocity = Velocity;
 
-			//Moves at constant speed based on the vector of the input. If no movement, decelerates to 0. 
-			//Note: Character currently decelerates in one frame, effectively stopping instantly.
-			Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		//Moves at constant speed based on the vector of the input. If no movement, decelerates to 0. 
+		//Note: Character currently decelerates in one frame, effectively stopping instantly.
+		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		if (EnableMovement == true){
 			if (direction != Vector2.Zero)
 			{
 				velocity.X = direction.X * Speed;
@@ -82,7 +87,8 @@ public partial class Player : CharacterBody2D
 			Velocity = velocity;
 			MoveAndSlide();
 			UpdateAnimations();
-		}
+			}
+		
 	}
 	/*
 	Summary:
@@ -114,24 +120,22 @@ public partial class Player : CharacterBody2D
 	{
 		if(@event.IsActionPressed("ui_inventory"))
 		{
-			inventory_ui.Visible = !inventory_ui.Visible;
 			EnableMovement = !EnableMovement;
-			//GetTree().Paused = !GetTree().Paused;
+			inventory_ui.Visible = !inventory_ui.Visible;
 			inventory_money.Text = "Money = " + glbl.money.ToString();
-   			inventory_health.Text = "Health = " + glbl.health.ToString();
-			GetTree().Paused = !GetTree().Paused;
+			inventory_health.Text = "Health = " + glbl.health.ToString();
 		}
 		
 		if(@event.IsActionPressed("ui_interact"))
 		{
+			EnableMovement = !EnableMovement;
 			shop_ui.Visible = !shop_ui.Visible;
-			GetTree().Paused = !GetTree().Paused;
 			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnShopOpened));
 		}
 		if(@event.IsActionPressed("ui_karma"))
 		{
+			EnableMovement = !EnableMovement;
 			karma_ui.Visible = !karma_ui.Visible;
-			GetTree().Paused = !GetTree().Paused;
 			karma_label.Text = "Karma = " + glbl.karma.ToString() + "\n";
 		}
 	}
