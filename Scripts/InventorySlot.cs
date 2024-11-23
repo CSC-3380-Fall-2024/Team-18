@@ -51,9 +51,14 @@ public partial class InventorySlot : Control
 
 	private void OnItemButtonPressed()
 	{
-		if (item != null && usage_panel.Visible == false)
+		if (item != null && usage_panel.Visible == false && details_panel.Visible == true)
 		{
 			usage_panel.Visible = true;
+			details_panel.Visible = !details_panel.Visible;
+		}
+		else if (item!= null && details_panel.Visible == false && usage_panel.Visible == false)
+		{
+			details_panel.Visible = !details_panel.Visible;
 		}
 	}
 	/*
