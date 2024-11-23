@@ -1,6 +1,7 @@
 using Godot;
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 /*
 Summary:
@@ -10,31 +11,11 @@ Create a variable of type Global (I use glbl as the variable name)
 In _Ready, add "glbl = GetNode<Global>("/root/Global");"
 This will create a reference to the already loaded Global Script.
 */
+
 public partial class Global : Node
 {
 	// Inventory array, stores all items as well as their data (quantities, types, etc.)
 	public dynamic[] inventory = new dynamic[30];
-	public dynamic[] quests = new dynamic[10];
-	public dynamic[] shop = new dynamic[10];
-	public int money = 1000;
-	//Exportable Battle Stats
-	
-	public int health = 50;
-	public int max_health = 100;
-	
-	//Logic for allowing the switching of weapons
-	public String weapon = "fists";
-	public int basedamage = 10;
-	public int damage = 10;
-	
-	//For Implementation of Field/Battle Items
-	public bool isBattling = false;
-	
-	//logic for trap item. Can be used outside of battle.
-	public bool trapped = false;
-	
-	public int karma = 0;
-	public bool door = false;
 	//Signal library; uses the CustomSignals script.
 	public CustomSignals custom_signals;
 	//The player. Starts as null, and refers to the player via method when the game starts to run.
@@ -42,8 +23,8 @@ public partial class Global : Node
 
 	 //Loads the 'inventory_slot' scene, and stores it here.
 	 public PackedScene inventory_slot_scene;
-	 //Loads the 'shop_slot' scene, and stores it here.
-	 public PackedScene shop_slot_scene;
+
+	 public int key_count = 0;
 
 	//Global Singleton reference.
 	 public Global glbl;
@@ -52,10 +33,8 @@ public partial class Global : Node
 	public override void _Ready()
 	{
 		inventory_slot_scene = GD.Load<PackedScene>("res://Scenes/inventory_slot.tscn");
-		shop_slot_scene = GD.Load<PackedScene>("res://Scenes/shop_slot.tscn");
 		custom_signals = GetNode<CustomSignals>("/root/CustomSignals");
 		glbl = GetNode<Global>("/root/Global");
-
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -73,9 +52,13 @@ public partial class Global : Node
 	Returns true if it an add the item, returns false otherwise.
 	*/
 	public bool AddItem( Dictionary<string, dynamic> item){
-
+		//keeps track of how many keys the player has picked up
+		if(item["item_type"] = "key"){
+			key_count += 1;
+		}
 		for(int i = 0; i < inventory.Length; i++) 
 		{
+			
 			//Checks for if the current item is of the same type and has the same effect
 			if ((inventory[i] != null) && (inventory[i]["item_type"] == item["item_type"]) && (inventory[i]["item_effect"] == item["item_effect"]))
 			{
@@ -92,8 +75,20 @@ public partial class Global : Node
 				return true;
 			}
 		}
+		
 		//if no spots are available, returns false.
 		return false;
+	}
+
+
+	public bool DoorOpen(Dictionary<string, dynamic> door){
+		//checks if key count is correct
+		if(key_count >= door["door_number"]){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	/*
 	Summary:
