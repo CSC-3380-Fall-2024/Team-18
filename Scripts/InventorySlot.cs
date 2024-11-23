@@ -125,21 +125,53 @@ public partial class InventorySlot : Control
 	}
 	/*
 	Summary:
-	If the used button is pressed, check for if the kind of item is "healing." If it is, add 50 hp and remove the item.
-	Note: This code is extremely bare-bones and just serves to work for the demo. This will be overhauled with more item types via an item resource.
+	Checks Item type to determine validity of use. Then after the item type is determined and filtered 
+	for use, then the item is removed, and field item effects are used. Effects are sent using CustomSingals.
+	These signals are used for Battle implementation.
 	*/
 	public void OnUseButtonPressed()
 	{
 		if(item["item_effect"] == "healing")
 		{
+			glbl.health = Math.Min(glbl.health+50, 100);
 			glbl.RemoveItem(item["item_type"], item["item_effect"]);
-			glbl.health += 50;
-			if(glbl.health >= 100)
-			{
-				glbl.health = 100;
-			}
-			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item_name);
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item_effect);
 		}
+		if(item["item_effect"] == "traps")
+		{
+			glbl.trapped = true;
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item["item_effect"]);
+		}
+		if(item["item_effect"] == "firebomb" && glbl.isBattling == false) 
+		{
+			GD.Print("You can't use that now."); //textbox maybe?
+		}
+		if(item["item_effect"] == "firebomb" && glbl.isBattling == true)
+		{
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item["item_effect"]);
+		}
+		if(item["item_effect"] == "sword" && glbl.isBattling == false) 
+		{
+			glbl.weapon = item["item_effect"];
+			glbl.damage = glbl.basedamage + 5;
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+		}
+		
+		// Dont know what to do with a map.
+		
 
+	}
+	
+	public override void _Input(InputEvent @event) 
+	{
+		if (Input.IsMouseButtonPressed(MouseButton.Left))
+		{
+			if(!usage_panel.GetGlobalRect().HasPoint(GetGlobalMousePosition()))
+			{
+				usage_panel.Visible = false;
+			}
+		}
 	}
 }

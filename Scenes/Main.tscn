@@ -13,10 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://ddv6mxuadlcvr" path="res://Assets/Icons/icon23.png" id="11_0tt3o"]
 [ext_resource type="Texture2D" uid="uid://chrl5dn1knwoh" path="res://Assets/Icons/icon24.png" id="12_ygunk"]
 [ext_resource type="Texture2D" uid="uid://by0onh1xpbew8" path="res://Assets/Icons/icon11.png" id="13_ydn7u"]
-[ext_resource type="PackedScene" uid="uid://d0gp4y5f8q5v2" path="res://Scenes/shop_vendor.tscn" id="14_oxwga"]
+[ext_resource type="PackedScene" path="res://Scenes/shop_vendor.tscn" id="14_oxwga"]
 [ext_resource type="Texture2D" uid="uid://djgh5lsnmhkh" path="res://Assets/Icons/icon7.png" id="15_103r3"]
 [ext_resource type="PackedScene" uid="uid://c5d160n4s4dk6" path="res://Scenes/npc.tscn" id="16_xwidb"]
-[ext_resource type="PackedScene" uid="uid://bkfado5vm3wng" path="res://Scenes/item_door.tscn" id="17_4khto"]
+[ext_resource type="PackedScene" path="res://Scenes/item_door.tscn" id="17_4khto"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_s8ogb"]
 tile_data = PackedInt32Array(0, 65541, 0, 65536, 65541, 1, 1, 131077, 0, 65537, 131077, 1)
@@ -498,7 +498,7 @@ position = Vector2(228, 128)
 item_type = "1"
 item_name = "fish"
 item_texture = ExtResource("10_3yj14")
-item_effect = "swords"
+item_effect = "sword"
 item_price = 100
 
 [node name="Inventory_Item2" parent="." instance=ExtResource("9_6t2tt")]
@@ -530,7 +530,7 @@ position = Vector2(274, 130)
 item_type = "7"
 item_name = "henry"
 item_texture = ExtResource("13_ydn7u")
-item_effect = "whateverthisis"
+item_effect = "firebomb"
 item_price = 100
 
 [node name="Shop_Vendor" parent="." instance=ExtResource("14_oxwga")]

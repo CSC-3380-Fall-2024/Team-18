@@ -29,7 +29,6 @@ public partial class Battle : Control
 	public CanvasLayer InventoryUI;
 	
 	//Declare health variables at class level
-	private int current_player_health = 0;
 	private int current_enemy_health = 0;
 	private int max_player_health = 0; //won't use until potions
 	private int MAX_ENEMY_HEALTH; //likely won't use until enemies get >1 attack
@@ -49,7 +48,6 @@ public partial class Battle : Control
 		setHealth(GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar"), glbl.health, glbl.max_health);
 		GetNode<TextureRect>("EnemyContainer/Enemy").Texture = (Texture2D)enemy.texture;
 		
-		current_player_health = glbl.health;
 		current_enemy_health = enemy.health;
 		max_player_health = glbl.max_health;
 		MAX_ENEMY_HEALTH = enemy.health;
@@ -66,10 +64,22 @@ public partial class Battle : Control
 		//GD.Print("Fuck1");
 		GetNode<Panel>("Actions").Show();
 	}
-	public void OnItemUsed(string ItemName){
+	public async void OnItemUsed(string ItemEffect){
 		GD.Print("Item Used.");
-		GD.Print($"{ItemName}");
+		GD.Print($"{ItemEffect}");
 		GetNode<CanvasLayer>("InventoryUI").Visible = false;
+		
+		if (ItemEffect == "firebomb")
+		{
+			display_text("You throw a firebomb, dealing 10 damage.");
+			await ToSignal(this, nameof(TextClosed));
+			current_enemy_health -= 10;
+		}
+		
+		setHealth(GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar"), glbl.health, max_player_health);
+		setHealth(GetNode<ProgressBar>("EnemyContainer/ProgressBar"), current_enemy_health, MAX_ENEMY_HEALTH);
+		
+		EnemyTurn();
 		
 	}
 	
@@ -105,17 +115,26 @@ public partial class Battle : Control
 			await ToSignal(this, nameof(TextClosed));
 			is_defending = false;
 		}
+		else if (glbl.trapped == true)
+		{
+			display_text($"{enemy.name} attacks, falling for you trap, taking {enemy.damage} damage.");
+			await ToSignal(this, nameof(TextClosed));
+			current_enemy_health -= enemy.damage;
+			glbl.trapped = false;
+			setHealth(GetNode<ProgressBar>("EnemyContainer/ProgressBar"), current_enemy_health, MAX_ENEMY_HEALTH);
+		}
 		else
 		{
 			display_text($"{enemy.name} attacks, dealing {enemy.damage}"); //this can be edited for multiple attacks. rand + assign rand name and dmg then pass to this and the function continues like normal
 			await ToSignal(this, nameof(TextClosed));
-			current_player_health = Math.Max(0, current_player_health - enemy.damage);
-			setHealth(GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar"), current_player_health, max_player_health);
+			glbl.health = Math.Max(0, glbl.health - enemy.damage);
+			setHealth(GetNode<ProgressBar>("PlayerPanel/PlayerData/ProgressBar"), glbl.health, max_player_health);
 		
-			if (current_player_health == 0) 
+			if (glbl.health == 0) 
 			{
 				display_text("You Lose.");
 				player.EnableMovement = true;
+				glbl.isBattling = false; 
 				QueueFree();
 			}
 		}
@@ -126,13 +145,13 @@ public partial class Battle : Control
 	{
 		display_text("Escaped Successfully!");
 		await ToSignal(this, nameof(TextClosed));
-		glbl.health = current_player_health;
 		player.EnableMovement = true;
+		glbl.isBattling = false; 
 		QueueFree();
 	}
 	public async void On_attack_pressed()
 	{
-		display_text($"You Attack with your weapon, dealing {glbl.damage} damage."); //Weapon names could change here. DMG can change in the state.cs. Still not 100% sure how. Probably by changing it in the main.cs
+		display_text($"You Attack with your {glbl.weapon}, dealing {glbl.damage} damage."); //Weapon names could change here. DMG can change in the state.cs. Still not 100% sure how. Probably by changing it in the main.cs
 		await ToSignal(this, nameof(TextClosed));
 		current_enemy_health = Math.Max(0, current_enemy_health - glbl.damage);
 		setHealth(GetNode<ProgressBar>("EnemyContainer/ProgressBar"), current_enemy_health, MAX_ENEMY_HEALTH);
@@ -142,8 +161,8 @@ public partial class Battle : Control
 			display_text("You Win.");
 			enemy.defeated = true;
 			await ToSignal(this, nameof(TextClosed));
-			glbl.health = current_player_health;
 			GetParent().QueueFree();
+			glbl.isBattling = false; 
 			player.EnableMovement = true;
 			QueueFree();
 		}
@@ -157,7 +176,7 @@ public partial class Battle : Control
 		await ToSignal(this, nameof(TextClosed));
 		EnemyTurn();
 	}
-	public async void On_items_pressed()
+	public void On_items_pressed()
 	{
 		GetNode<CanvasLayer>("InventoryUI").Visible = true;
 		//GetTree().Paused = !GetTree().Paused;

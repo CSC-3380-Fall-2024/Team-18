@@ -18,9 +18,20 @@ public partial class Global : Node
 	public dynamic[] shop = new dynamic[10];
 	public int money = 1000;
 	//Exportable Battle Stats
+	
 	public int health = 50;
 	public int max_health = 100;
+	
+	//Logic for allowing the switching of weapons
+	public String weapon = "fists";
+	public int basedamage = 10;
 	public int damage = 10;
+	
+	//For Implementation of Field/Battle Items
+	public bool isBattling = false;
+	
+	//logic for trap item. Can be used outside of battle.
+	public bool trapped = false;
 	
 	public int karma = 0;
 	public bool door = false;

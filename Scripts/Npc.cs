@@ -60,6 +60,7 @@ public partial class Npc: CharacterBody2D{
 			player.Presstalk.Visible = false;
 			dialoguebox.Visible = false;
 			player.EnableMovement = false;
+			glbl.isBattling = true;
 			
 			//GetTree().Paused = !GetTree().Paused;
 			
