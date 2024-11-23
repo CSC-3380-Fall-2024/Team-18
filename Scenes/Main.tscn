@@ -495,11 +495,12 @@ position = Vector2(391, 110)
 
 [node name="Inventory_Item" parent="." instance=ExtResource("9_6t2tt")]
 position = Vector2(228, 128)
-item_type = "1"
-item_name = "fish"
+item_type = "Equipment"
+item_name = "SteelSword"
 item_texture = ExtResource("10_3yj14")
-item_effect = "sword"
+item_effect = "Damage+5"
 item_price = 100
+equip_effect = 5
 
 [node name="Inventory_Item2" parent="." instance=ExtResource("9_6t2tt")]
 position = Vector2(266, 151)

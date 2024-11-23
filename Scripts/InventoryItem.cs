@@ -25,6 +25,8 @@ public partial class InventoryItem : Node2D
 	public string item_effect{ get; set; } = "";
 	[Export]
 	public int item_price{get; set;} = 0;
+	[Export]
+	public int equip_effect{get; set;} = 0;
 
 	//Global Reference
 	public Global glbl;
@@ -79,7 +81,8 @@ public partial class InventoryItem : Node2D
 			{ "item_name", item_name },
 			{ "item_texture", item_texture },
 			{ "item_effect", item_effect },
-			{ "item_price", item_price }
+			{ "item_price", item_price },
+			{ "equip_effect", equip_effect }
 		};
 		
 		if(glbl.player_node != null){

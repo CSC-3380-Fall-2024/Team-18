@@ -51,9 +51,13 @@ public partial class InventorySlot : Control
 
 	private void OnItemButtonPressed()
 	{
-		if (item != null)
+		if (item != null && usage_panel.Visible == false && details_panel.Visible == true)
 		{
-			usage_panel.Visible = !usage_panel.Visible;
+			usage_panel.Visible = true;
+			details_panel.Visible = !details_panel.Visible;
+		}
+		else if (item!= null && details_panel.Visible == false && usage_panel.Visible == false)
+		{
 			details_panel.Visible = !details_panel.Visible;
 		}
 	}
@@ -152,13 +156,16 @@ public partial class InventorySlot : Control
 			glbl.RemoveItem(item["item_type"], item["item_effect"]);
 			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item["item_effect"]);
 		}
-		if(item["item_effect"] == "sword" && glbl.isBattling == false) 
+		if(item["item_type"] == "Equipment")
 		{
-			glbl.weapon = item["item_effect"];
-			glbl.damage = glbl.basedamage + 5;
-			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			if(item["item_name"] == "SteelSword" && glbl.isBattling == false) 
+			{
+				glbl.weapon = item["item_name"];
+				glbl.damage = glbl.basedamage + item["equip_effect"];
+				glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			}
 		}
-		
+			
 		// Dont know what to do with a map.
 		
 
