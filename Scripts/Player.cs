@@ -16,6 +16,8 @@ public partial class Player : CharacterBody2D
 	//CanvasLayer for the screen that appears when you open the inventory.
 	[Export]
 	public CanvasLayer inventory_ui;
+	[Export]
+	public Label interact_text;
 
 	[Export]
 	public CanvasLayer shop_ui;
@@ -31,6 +33,7 @@ public partial class Player : CharacterBody2D
 	public CanvasLayer Presstalk;
 	//Pause Alternative
 	public bool EnableMovement = true;
+	public bool player_in_range = false;
 	
 	//Global Reference
 	//Global Reference
@@ -48,6 +51,7 @@ public partial class Player : CharacterBody2D
 		char_anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		glbl.SetPlayerReference(this);
 		interact_ui = GetNode<CanvasLayer>("InteractUI");
+		interact_text = GetNode<Label>("InteractUI/ColorRect/Label");
 		inventory_ui = GetNode<CanvasLayer>("InventoryUI");
 		shop_ui = GetNode<CanvasLayer>("ShopUI");
 		karma_ui = GetNode<CanvasLayer>("KarmaUI");
@@ -126,7 +130,7 @@ public partial class Player : CharacterBody2D
 			inventory_health.Text = "Health = " + glbl.health.ToString();
 		}
 		
-		if(@event.IsActionPressed("ui_interact"))
+		if(@event.IsActionPressed("ui_interact") && player_in_range == true)
 		{
 			EnableMovement = !EnableMovement;
 			shop_ui.Visible = !shop_ui.Visible;

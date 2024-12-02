@@ -25,9 +25,10 @@ public partial class ItemDoor : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (player_in_range && Input.IsActionJustPressed("open") )
+		if (glbl.door == true && player_in_range && Input.IsActionJustPressed("open") )
 		{
-			KeyCheck();
+			glbl.door = false;
+			QueueFree();
 		}
 	}
 
@@ -39,23 +40,25 @@ public partial class ItemDoor : Node2D
 		}
 	}
 
-	public void OnArea2DBodyEntered(Player body)
+	public void OnArea2DBodyEntered(Node2D body)
 	{
-		GD.Print("Body Entered Type: ", body.GetType());
-		if(body is Player player && body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			GD.Print("yes");
 			player_in_range = true;
+			player.interact_text.Text = "Press O to open.";
+			player.interact_ui.Visible = true;
 			
 		}
 		
 	}
 
-	public void OnArea2DBodyExited(Player body)
+	public void OnArea2DBodyExited(Node2D body)
 	{
-		if(body is Player player && body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			player_in_range = false;
+			player.interact_ui.Visible = false;
 		
 		}
 	}
