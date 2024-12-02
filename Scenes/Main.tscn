@@ -518,6 +518,14 @@ item_texture = ExtResource("12_52737")
 item_effect = "key"
 item_price = 100
 
+[node name="Inventory_Item8" parent="." instance=ExtResource("9_6t2tt")]
+position = Vector2(201, 151)
+item_type = "3"
+item_name = "jeffery"
+item_texture = ExtResource("12_52737")
+item_effect = "key"
+item_price = 100
+
 [node name="Inventory_Item4" parent="." instance=ExtResource("9_6t2tt")]
 position = Vector2(298, 161)
 item_type = "4"
