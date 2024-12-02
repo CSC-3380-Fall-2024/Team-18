@@ -165,6 +165,18 @@ public partial class InventorySlot : Control
 				glbl.RemoveItem(item["item_type"], item["item_effect"]);
 			}
 		}
+		if(item["item_type"] == "fish")
+		{
+			glbl.health = glbl.max_health;
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item_effect);
+		}
+		if(item["item_effect"] == "key" && glbl.isBattling == false)
+		{
+			glbl.door = true;
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item["item_effect"]);
+		}
 			
 		// Dont know what to do with a map.
 		

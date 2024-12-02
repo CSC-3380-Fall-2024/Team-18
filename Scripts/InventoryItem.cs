@@ -100,13 +100,14 @@ public partial class InventoryItem : Node2D
 	Params:
 	body: must be the Player class.
 	*/
-	public void OnArea2DBodyEntered(Player body)
+	public void OnArea2DBodyEntered(Node2D body)
 	{
 		//checks for the player specifically
-		if(body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			player_in_range = true;
-			body.interact_ui.Visible = true;
+			player.interact_text.Text = "Press E to Pick Up.";
+			player.interact_ui.Visible = true;
 		}
 	}
 	/*
@@ -115,12 +116,12 @@ public partial class InventoryItem : Node2D
 	Params:
 	body: must be the Player class.
 	*/
-	public void OnArea2DBodyExited(Player body)
+	public void OnArea2DBodyExited(Node2D body)
 	{
-		if(body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			player_in_range = false;
-			body.interact_ui.Visible = false;
+			player.interact_ui.Visible = false;
 		}
 	}
 }
