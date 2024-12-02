@@ -67,7 +67,7 @@ public partial class Battle : Control
 	public async void OnItemUsed(string ItemEffect){
 		GD.Print("Item Used.");
 		GD.Print($"{ItemEffect}");
-		GetNode<CanvasLayer>("InventoryUI").Visible = false;
+		player.inventory_ui.Visible = !player.inventory_ui.Visible;
 		
 		if (ItemEffect == "firebomb")
 		{
@@ -97,8 +97,12 @@ public partial class Battle : Control
 			//GetTree().Paused = false;
 			GD.Print("Text Closed");
 			GetNode<Control>("Textbox").Hide();
-			EmitSignal(nameof(TextClosed));
+			EmitSignal(nameof(TextClosed));		
+		}
 		
+		if(@event.IsActionPressed("ui_inventory"))
+		{
+			GetNode<CanvasLayer>("InventoryUI").Visible = false;
 		}
 	}
 	public void display_text(String text)
@@ -178,7 +182,9 @@ public partial class Battle : Control
 	}
 	public void On_items_pressed()
 	{
-		GetNode<CanvasLayer>("InventoryUI").Visible = true;
+		player.inventory_ui.Visible = !player.inventory_ui.Visible;
+		player.inventory_money.Text = "Money = " + glbl.money.ToString();
+		player.inventory_health.Text = "Health = " + glbl.health.ToString();
 		//GetTree().Paused = !GetTree().Paused;
 		//JUST FOR DEMO
 		
@@ -190,4 +196,5 @@ public partial class Battle : Control
 	public override void _Process(double delta)
 	{
 	}
+	
 }
