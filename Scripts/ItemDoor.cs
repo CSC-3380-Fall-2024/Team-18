@@ -1,12 +1,16 @@
 using Godot;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public partial class ItemDoor : Node2D
 {
 	public Sprite2D icon_sprite;
 
 	bool player_in_range = false;
+
+	[Export]
+	public int door_number { get; set; } = 0;
 
 	public Global glbl;
 
@@ -21,29 +25,40 @@ public partial class ItemDoor : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (player_in_range && Input.IsActionJustPressed("open") && glbl.door == false)
+		if (glbl.door == true && player_in_range && Input.IsActionJustPressed("open") )
 		{
+			glbl.door = false;
 			QueueFree();
 		}
 	}
 
-	public void OnArea2DBodyEntered(Player body)
+	public void KeyCheck(){
+		Dictionary<string, dynamic> door = new Dictionary<string, dynamic>();
+		door.Add("door_number", door_number);
+		if(glbl.DoorOpen(door) == true){
+			QueueFree();
+		}
+	}
+
+	public void OnArea2DBodyEntered(Node2D body)
 	{
-		GD.Print("Body Entered Type: ", body.GetType());
-		if(body is Player player && body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			GD.Print("yes");
 			player_in_range = true;
+			player.interact_text.Text = "Press O to open.";
+			player.interact_ui.Visible = true;
 			
 		}
 		
 	}
 
-	public void OnArea2DBodyExited(Player body)
+	public void OnArea2DBodyExited(Node2D body)
 	{
-		if(body is Player player && body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			player_in_range = false;
+			player.interact_ui.Visible = false;
 		
 		}
 	}

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://prkfiy7dxb6l"
-path="res://.godot/imported/Dialogue_box.png-3f64fb6ab06b66b6487448b3bd95651c.ctex"
+uid="uid://best6ceuaijp3"
+path="res://.godot/imported/pixilart-drawing_11.png-35455201ee8862add71f0990930fc008.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Icons/Dialogue_box.png"
-dest_files=["res://.godot/imported/Dialogue_box.png-3f64fb6ab06b66b6487448b3bd95651c.ctex"]
+source_file="res://Skylurs-assets/Skylurs-Assets/pixilart-drawing_11.png"
+dest_files=["res://.godot/imported/pixilart-drawing_11.png-35455201ee8862add71f0990930fc008.ctex"]
 
 [params]
 

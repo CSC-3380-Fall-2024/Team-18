@@ -23,14 +23,14 @@ public partial class InventoryItem : Node2D
 	//Classification regarding whether the item can be destroyed, as well as how it works when used.
 	[Export]
 	public string item_effect{ get; set; } = "";
+	[Export]
+	public int item_price{get; set;} = 0;
+	[Export]
+	public int equip_effect{get; set;} = 0;
 
-	//Links to the scene for this script.
-	string scene_path = "res://Scenes/Inventory_Item:tscn";
 	//Global Reference
 	public Global glbl;
 	bool player_in_range = false;
-
-	
 	/*
 	Summary:
 	Called when the node enters the scene tree for the first time.
@@ -74,13 +74,16 @@ public partial class InventoryItem : Node2D
 	*/
 	public void PickupItem()
 	{
-		Dictionary<string, dynamic> item = new Dictionary<string, dynamic>();
-		item.Add("quantity", 1);
-		item.Add("item_type", item_type);
-		item.Add("item_name", item_name);
-		item.Add("item_texture", item_texture);
-		item.Add("item_effect", item_effect);
-		item.Add("scene_path", scene_path);
+		Dictionary<string, dynamic> item = new Dictionary<string, dynamic>
+		{
+			{ "quantity", 1 },
+			{ "item_type", item_type },
+			{ "item_name", item_name },
+			{ "item_texture", item_texture },
+			{ "item_effect", item_effect },
+			{ "item_price", item_price },
+			{ "equip_effect", equip_effect }
+		};
 		
 		if(glbl.player_node != null){
 			bool success = glbl.AddItem(item);
@@ -97,15 +100,15 @@ public partial class InventoryItem : Node2D
 	Params:
 	body: must be the Player class.
 	*/
-	public void OnArea2DBodyEntered(Player body)
+	public void OnArea2DBodyEntered(Node2D body)
 	{
 		//checks for the player specifically
-		if(body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			player_in_range = true;
-			body.interact_ui.Visible = true;
+			player.interact_text.Text = "Press E to Pick Up.";
+			player.interact_ui.Visible = true;
 		}
-		
 	}
 	/*
 	Summary:
@@ -113,12 +116,12 @@ public partial class InventoryItem : Node2D
 	Params:
 	body: must be the Player class.
 	*/
-	public void OnArea2DBodyExited(Player body)
+	public void OnArea2DBodyExited(Node2D body)
 	{
-		if(body.IsInGroup("Player"))
+		if(body.IsInGroup("Player") && body is Player player)
 		{
 			player_in_range = false;
-			body.interact_ui.Visible = false;
+			player.interact_ui.Visible = false;
 		}
 	}
 }

@@ -5,12 +5,8 @@ using System.Collections.Generic;
 	Summary:
 	Script for placing the inventory items into the correct slots. Currently untouched.
 	*/
-	
-
 public partial class InventorySlot : Control
 {
-	
-
 	//Inventory icon for item
 	public Sprite2D icon;
 	//Label for the amount of items; NOT the quantity itself.
@@ -39,8 +35,6 @@ public partial class InventorySlot : Control
 		details_panel = GetNode<ColorRect>("Outer_Border2");
 		usage_panel = GetNode<ColorRect>("Usage_Panel");
 		glbl = GetNode<Global>("/root/Global");
-		details_panel.Visible = false;
-		usage_panel.Visible = false;
 		
 
 	}
@@ -57,9 +51,14 @@ public partial class InventorySlot : Control
 
 	private void OnItemButtonPressed()
 	{
-		if (item != null)
+		if (item != null && usage_panel.Visible == false && details_panel.Visible == true)
 		{
-			usage_panel.Visible = !usage_panel.Visible;
+			usage_panel.Visible = true;
+			details_panel.Visible = !details_panel.Visible;
+		}
+		else if (item!= null && details_panel.Visible == false && usage_panel.Visible == false)
+		{
+			details_panel.Visible = !details_panel.Visible;
 		}
 	}
 	/*
@@ -124,9 +123,69 @@ public partial class InventorySlot : Control
 	*/
 	public void OnDiscardButtonPressed()
 	{
-		if(item_name != null){
+		if(item != null){
 			glbl.RemoveItem(item["item_type"], item["item_effect"]);
 		}
+	}
+	/*
+	Summary:
+	Checks Item type to determine validity of use. Then after the item type is determined and filtered 
+	for use, then the item is removed, and field item effects are used. Effects are sent using CustomSingals.
+	These signals are used for Battle implementation.
+	*/
+	public void OnUseButtonPressed()
+	{
+		if(item["item_effect"] == "healing")
+		{
+			glbl.health = Math.Min(glbl.health+50, 100);
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item_effect);
+		}
+		if(item["item_effect"] == "traps")
+		{
+			glbl.trapped = true;
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item["item_effect"]);
+		}
+		if(item["item_effect"] == "firebomb" && glbl.isBattling == false) 
+		{
+			GD.Print("You can't use that now."); //textbox maybe?
+		}
+		if(item["item_effect"] == "firebomb" && glbl.isBattling == true)
+		{
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item["item_effect"]);
+		}
+		if(item["item_type"] == "Equipment")
+		{
+			if(item["item_name"] == "SteelSword" && glbl.isBattling == false) 
+			{
+				glbl.weapon = item["item_name"];
+				glbl.damage = glbl.basedamage + item["equip_effect"];
+				glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			}
+		}
+		if(item["item_type"] == "fish")
+		{
+			glbl.health = glbl.max_health;
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item_effect);
+		}
+		if(item["item_effect"] == "key" && glbl.isBattling == false && glbl.door == false)
+		{
+			glbl.door = true;
+			glbl.RemoveItem(item["item_type"], item["item_effect"]);
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item["item_effect"]);
+		}
+		if(item["item_effect"] == "key" && glbl.isBattling == true || glbl.door == true)
+		{
+			glbl.door = true;
+			GD.Print("You can't use that now.");
+		}
+			
+		// Dont know what to do with a map.
+		
+
 	}
 	
 	public override void _Input(InputEvent @event) 

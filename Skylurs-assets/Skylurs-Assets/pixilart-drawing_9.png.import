@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs3i7bjt3egjl"
-path="res://.godot/imported/Robot NPC Idle.png-d2d60b07965f221a35348a8a61060563.ctex"
+uid="uid://ck6c7esmedsg3"
+path="res://.godot/imported/pixilart-drawing_9.png-e788f6584b797ef540dc090fda927da2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Robot NPC Idle.png"
-dest_files=["res://.godot/imported/Robot NPC Idle.png-d2d60b07965f221a35348a8a61060563.ctex"]
+source_file="res://Skylurs-assets/Skylurs-Assets/pixilart-drawing_9.png"
+dest_files=["res://.godot/imported/pixilart-drawing_9.png-e788f6584b797ef540dc090fda927da2.ctex"]
 
 [params]
 

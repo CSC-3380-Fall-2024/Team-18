@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0gp4y5f8q5v2"]
+
+[ext_resource type="Script" path="res://Scripts/ShopVendor.cs" id="1_uodl3"]
+[ext_resource type="Texture2D" uid="uid://bdi600ohf3wsg" path="res://Assets/Icons/icon4.png" id="2_tinyk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ldeba"]
+
+[node name="Shop_Vendor" type="Node2D"]
+script = ExtResource("1_uodl3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tinyk")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ldeba")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
+[connection signal="body_exited" from="Area2D" to="." method="OnArea2DBodyExited"]

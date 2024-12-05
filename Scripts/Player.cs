@@ -17,9 +17,29 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public CanvasLayer inventory_ui;
 	[Export]
+	public Label interact_text;
+
+	[Export]
+	public CanvasLayer shop_ui;
+	[Export]
+	public CanvasLayer karma_ui;
+	[Export]
+	public Label karma_label;
+	[Export]
+	public Label inventory_money;
+	[Export]
+	public Label inventory_health;
+
 	public CanvasLayer Presstalk;
+	//Pause Alternative
+	public bool EnableMovement = true;
+	public bool player_in_range = false;
+	
+	//Global Reference
 	//Global Reference
 	public Global glbl;
+	
+	
 	/*
 	Summary:
 	Called when the node enters the scene tree for the first time. 
@@ -31,10 +51,15 @@ public partial class Player : CharacterBody2D
 		char_anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		glbl.SetPlayerReference(this);
 		interact_ui = GetNode<CanvasLayer>("InteractUI");
+		interact_text = GetNode<Label>("InteractUI/ColorRect/Label");
 		inventory_ui = GetNode<CanvasLayer>("InventoryUI");
+		shop_ui = GetNode<CanvasLayer>("ShopUI");
+		karma_ui = GetNode<CanvasLayer>("KarmaUI");
+		karma_label = GetNode<Label>("KarmaUI/ColorRect/Label");
+		inventory_money = GetNode<Label>("InventoryUI/ColorRect/Money");
+		inventory_health = GetNode<Label>("InventoryUI/ColorRect/Health");
 		Presstalk = GetNode<CanvasLayer>("Presstalk");
-		interact_ui.Visible = false;
-		Presstalk.Visible = false;
+
 	}
 	
 	/*
@@ -51,20 +76,22 @@ public partial class Player : CharacterBody2D
 		//Moves at constant speed based on the vector of the input. If no movement, decelerates to 0. 
 		//Note: Character currently decelerates in one frame, effectively stopping instantly.
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
-		{
-			velocity.X = direction.X * Speed;
-			velocity.Y = direction.Y * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
-		}
+		if (EnableMovement == true){
+			if (direction != Vector2.Zero)
+			{
+				velocity.X = direction.X * Speed;
+				velocity.Y = direction.Y * Speed;
+			}
+			else
+			{
+				velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+				velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+			}
 
-		Velocity = velocity;
-		MoveAndSlide();
-		UpdateAnimations();
+			Velocity = velocity;
+			MoveAndSlide();
+			UpdateAnimations();
+			}
 		
 	}
 	/*
@@ -97,8 +124,23 @@ public partial class Player : CharacterBody2D
 	{
 		if(@event.IsActionPressed("ui_inventory"))
 		{
+			EnableMovement = !EnableMovement;
 			inventory_ui.Visible = !inventory_ui.Visible;
-			GetTree().Paused = !GetTree().Paused;
+			inventory_money.Text = "Money = " + glbl.money.ToString();
+			inventory_health.Text = "Health = " + glbl.health.ToString();
+		}
+		
+		if(@event.IsActionPressed("ui_interact") && player_in_range == true)
+		{
+			EnableMovement = !EnableMovement;
+			shop_ui.Visible = !shop_ui.Visible;
+			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnShopOpened));
+		}
+		if(@event.IsActionPressed("ui_karma"))
+		{
+			EnableMovement = !EnableMovement;
+			karma_ui.Visible = !karma_ui.Visible;
+			karma_label.Text = "Karma = " + glbl.karma.ToString() + "\n";
 		}
 	}
 }

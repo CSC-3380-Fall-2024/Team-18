@@ -1,6 +1,7 @@
 using Godot;
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 /*
 Summary:
@@ -10,19 +11,42 @@ Create a variable of type Global (I use glbl as the variable name)
 In _Ready, add "glbl = GetNode<Global>("/root/Global");"
 This will create a reference to the already loaded Global Script.
 */
+
 public partial class Global : Node
 {
 	// Inventory array, stores all items as well as their data (quantities, types, etc.)
 	public dynamic[] inventory = new dynamic[30];
+	public dynamic[] quests = new dynamic[10];
+	public dynamic[] shop = new dynamic[10];
+	public int money = 1000;
 	//Signal library; uses the CustomSignals script.
 	public CustomSignals custom_signals;
 	//The player. Starts as null, and refers to the player via method when the game starts to run.
 	 public CharacterBody2D player_node = null;
+	
+	//Exportable Battle Stats
+	public int health = 50;
+	public int max_health = 100;
+	
+	//Logic for allowing the switching of weapons
+	public String weapon = "fists";
+	public int basedamage = 10;
+	public int damage = 10;
+	
+	//For Implementation of Field/Battle Items
+	public bool isBattling = false;
+	
+	//logic for trap item. Can be used outside of battle.
+	public bool trapped = false;
+	public bool door = false;
+	public int karma = 1000;
 
 	 //Loads the 'inventory_slot' scene, and stores it here.
 	 public PackedScene inventory_slot_scene;
+	 //Loads the 'shop_slot' scene, and stores it here.
+	 public PackedScene shop_slot_scene;
 
-	 public bool door = true;
+	 public int key_count = 0;
 
 	//Global Singleton reference.
 	 public Global glbl;
@@ -31,6 +55,7 @@ public partial class Global : Node
 	public override void _Ready()
 	{
 		inventory_slot_scene = GD.Load<PackedScene>("res://Scenes/inventory_slot.tscn");
+		shop_slot_scene = GD.Load<PackedScene>("res://Scenes/shop_slot.tscn");
 		custom_signals = GetNode<CustomSignals>("/root/CustomSignals");
 		glbl = GetNode<Global>("/root/Global");
 	}
@@ -50,13 +75,14 @@ public partial class Global : Node
 	Returns true if it an add the item, returns false otherwise.
 	*/
 	public bool AddItem( Dictionary<string, dynamic> item){
-		glbl.door = false;
 		for(int i = 0; i < inventory.Length; i++) 
 		{
 			
 			//Checks for if the current item is of the same type and has the same effect
 			if ((inventory[i] != null) && (inventory[i]["item_type"] == item["item_type"]) && (inventory[i]["item_effect"] == item["item_effect"]))
 			{
+				
+				
 				//adds the amount of items to the quantity key in the item's dictionary, sends a signal and returns true.
 				inventory[i]["quantity"] += item["quantity"];
 				glbl.custom_signals.EmitSignal(nameof(CustomSignals.InventoryUpdated));
@@ -73,6 +99,17 @@ public partial class Global : Node
 		
 		//if no spots are available, returns false.
 		return false;
+	}
+
+
+	public bool DoorOpen(Dictionary<string, dynamic> door){
+		//checks if key count is correct
+		if(key_count > door["door_number"]){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	/*
 	Summary:
