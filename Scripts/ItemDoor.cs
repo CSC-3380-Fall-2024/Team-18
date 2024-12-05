@@ -32,13 +32,13 @@ public partial class ItemDoor : Node2D
 		}
 	}
 
-	public void KeyCheck(){
-		Dictionary<string, dynamic> door = new Dictionary<string, dynamic>();
-		door.Add("door_number", door_number);
-		if(glbl.DoorOpen(door) == true){
-			QueueFree();
-		}
-	}
+	//public void KeyCheck(){
+		//Dictionary<string, dynamic> door = new Dictionary<string, dynamic>();
+		//door.Add("door_number", door_number);
+		//if(glbl.DoorOpen(door) == true){
+			//QueueFree();
+		//}
+	//}
 
 	public void OnArea2DBodyEntered(Node2D body)
 	{

@@ -102,15 +102,15 @@ public partial class Global : Node
 	}
 
 
-	public bool DoorOpen(Dictionary<string, dynamic> door){
+	//public bool DoorOpen(Dictionary<string, dynamic> door){
 		//checks if key count is correct
-		if(key_count > door["door_number"]){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
+		//if(key_count > door["door_number"]){
+			//return true;
+		//}
+		//else{
+			//return false;
+		//}
+	//}
 	/*
 	Summary:
 	Called from InventorySLot -> "OnDiscardButtonPressed." removes 1 from the quantity of the item selected, and removes that item from the inventory if out of items.
