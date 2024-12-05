@@ -172,6 +172,7 @@ public partial class InventorySlot : Control
 			glbl.custom_signals.EmitSignal(nameof(CustomSignals.OnItemUsed),item_effect);
 		}
 		if(item["item_effect"] == "key" && (glbl.isBattling == true || glbl.door == true))
+
 		{
 			glbl.door = true;
 			GD.Print("You can't use that now.");
