@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce43sij2o13wn"]
+
+[ext_resource type="Script" path="res://EndScreen.cs" id="1_v1iwo"]
+[ext_resource type="Texture2D" uid="uid://bkkl7w35hw3f5" path="res://Assets/Icons/endscreen.png" id="2_5uh5m"]
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.43129, 0.49391)
+script = ExtResource("1_v1iwo")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 102.02
+offset_top = 62.7645
+offset_right = 1698.02
+offset_bottom = 906.765
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.388458, 0.352986)
+texture = ExtResource("2_5uh5m")
+
+[node name="Textbox" type="Panel" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.003
+anchor_bottom = 0.003
+offset_left = 20.0
+offset_top = 316.84
+offset_right = 60.0
+offset_bottom = 356.84
+scale = Vector2(7.54204, 1.31063)
+
+[node name="Label" type="Label" parent="Textbox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.281342
+offset_top = 2.18228
+offset_right = 601.281
+offset_bottom = 2.18228
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.0635, 0.889419)
+theme_override_font_sizes/font_size = 18
+text = "END GAME"
+horizontal_alignment = 1
+autowrap_mode = 3

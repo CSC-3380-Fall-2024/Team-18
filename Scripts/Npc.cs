@@ -59,8 +59,14 @@ public partial class Npc: CharacterBody2D{
 			player_in_range = false;
 			player.Presstalk.Visible = false;
 			dialoguebox.Visible = false;
+			
+			
+			
+			
+			//Karma and Battle happen here
 			player.EnableMovement = false;
 			glbl.isBattling = true;
+			glbl.karma -= 200;
 			
 			//GetTree().Paused = !GetTree().Paused;
 			

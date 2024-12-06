@@ -20,7 +20,13 @@ public partial class InventoryUi : Control
 		glbl = GetNode<Global>("/root/Global");
 		grid_container = GetNode<GridContainer>("GridContainer");
 		glbl.custom_signals = GetNode<CustomSignals>("/root/CustomSignals");
-		glbl.custom_signals.InventoryUpdated += OnInventoryUpdated;
+		
+		/*
+		I had used this at some point to connect some signal not through glbl, 
+		but dropped it because of Godot 4.3's weird syntax for the connection and global signals worked better
+		However, we had a problem where signals weren't being disconnected on QueueFree(), so this is the solution.
+		*/
+		glbl.custom_signals.Connect("InventoryUpdated", new Callable(this, nameof(OnInventoryUpdated)));
 		OnInventoryUpdated();
 	}
 
