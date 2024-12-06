@@ -139,6 +139,7 @@ public partial class Battle : Control
 				display_text("You Lose.");
 				player.EnableMovement = true;
 				glbl.isBattling = false; 
+				glbl.custom_signals.OnItemUsed -= OnItemUsed;
 				QueueFree();
 			}
 		}
@@ -151,6 +152,7 @@ public partial class Battle : Control
 		await ToSignal(this, nameof(TextClosed));
 		player.EnableMovement = true;
 		glbl.isBattling = false; 
+		glbl.custom_signals.OnItemUsed -= OnItemUsed;
 		QueueFree();
 	}
 	public async void On_attack_pressed()
@@ -166,8 +168,10 @@ public partial class Battle : Control
 			enemy.defeated = true;
 			await ToSignal(this, nameof(TextClosed));
 			GetParent().QueueFree();
+			glbl.karma -= 500;
 			glbl.isBattling = false; 
 			player.EnableMovement = true;
+			glbl.custom_signals.OnItemUsed -= OnItemUsed;
 			QueueFree();
 		}
 		EnemyTurn();
@@ -182,11 +186,13 @@ public partial class Battle : Control
 	}
 	public void On_items_pressed()
 	{
-		player.inventory_ui.Visible = !player.inventory_ui.Visible;
-		player.inventory_money.Text = "Money = " + glbl.money.ToString();
-		player.inventory_health.Text = "Health = " + glbl.health.ToString();
-		//GetTree().Paused = !GetTree().Paused;
-		//JUST FOR DEMO
+		if(glbl.isBattling == true ){
+			player.inventory_ui.Visible = !player.inventory_ui.Visible;
+			player.inventory_money.Text = "Money = " + glbl.money.ToString();
+			player.inventory_health.Text = "Health = " + glbl.health.ToString();
+			//GetTree().Paused = !GetTree().Paused;
+			//JUST FOR DEMO
+			}
 		
 		
 	}
