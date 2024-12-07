@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BaseDialogue" load_steps=6 format=3 uid="uid://bobw2ruieea2n"]
+
+[ext_resource type="Resource" uid="uid://bp7tspdjj07y4" path="res://Scripts/tresses/option_fight.tres" id="1_ve4jk"]
+[ext_resource type="Resource" uid="uid://bryjelwtybfh1" path="res://Scripts/tresses/option_item.tres" id="2_mcdx4"]
+[ext_resource type="Resource" uid="uid://oagddfheo75" path="res://Scripts/tresses/option_karma.tres" id="3_u7ley"]
+[ext_resource type="Resource" uid="uid://dkdcrv6rdkffj" path="res://Scripts/tresses/option_nothing.tres" id="4_6378h"]
+[ext_resource type="Script" path="res://Scripts/BaseDialogue.cs" id="5_etkio"]
+
+[resource]
+script = ExtResource("5_etkio")
+dialogue = "Hello There!"
+options = [ExtResource("1_ve4jk"), ExtResource("2_mcdx4"), ExtResource("3_u7ley"), ExtResource("4_6378h")]

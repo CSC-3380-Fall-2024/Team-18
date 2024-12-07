@@ -33,7 +33,8 @@ public partial class Player : CharacterBody2D
 	public CanvasLayer Presstalk;
 	//Pause Alternative
 	public bool EnableMovement = true;
-	public bool player_in_range = false;
+	public bool shop_openable = false;
+	public Camera2D camera;
 	
 	//Global Reference
 	//Global Reference
@@ -48,8 +49,9 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		glbl = GetNode<Global>("/root/Global");
+		camera = GetNode<Camera2D>("Camera2D");
 		char_anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		glbl.SetPlayerReference(this);
+		glbl.SetPlayerReference(this, this);
 		interact_ui = GetNode<CanvasLayer>("InteractUI");
 		interact_text = GetNode<Label>("InteractUI/ColorRect/Label");
 		inventory_ui = GetNode<CanvasLayer>("InventoryUI");
@@ -130,7 +132,7 @@ public partial class Player : CharacterBody2D
 			inventory_health.Text = "Health = " + glbl.health.ToString();
 		}
 		
-		if(@event.IsActionPressed("ui_interact") && player_in_range == true)
+		if(@event.IsActionPressed("ui_interact") && shop_openable == true)
 		{
 			EnableMovement = !EnableMovement;
 			shop_ui.Visible = !shop_ui.Visible;

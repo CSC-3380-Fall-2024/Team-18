@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseOptions" load_steps=3 format=3 uid="uid://bp7tspdjj07y4"]
+
+[ext_resource type="Resource" uid="uid://do704ww0ext0f" path="res://Scripts/test_knight.tres" id="1_6o71l"]
+[ext_resource type="Script" path="res://Scripts/BaseOptions.cs" id="2_tvd2n"]
+
+[resource]
+script = ExtResource("2_tvd2n")
+text = "Battle"
+battle_enemy = ExtResource("1_6o71l")
+karma = -200
+effects = PackedStringArray("battle", "karma", "")

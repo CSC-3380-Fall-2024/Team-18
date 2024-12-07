@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BaseOptions" load_steps=2 format=3 uid="uid://dkdcrv6rdkffj"]
+
+[ext_resource type="Script" path="res://Scripts/BaseOptions.cs" id="1_rxc4d"]
+
+[resource]
+script = ExtResource("1_rxc4d")
+text = "Close Menu"
+karma = 0
+effects = PackedStringArray()
