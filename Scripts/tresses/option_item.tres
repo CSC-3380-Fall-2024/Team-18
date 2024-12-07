@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BaseOptions" load_steps=3 format=3 uid="uid://bryjelwtybfh1"]
+
+[ext_resource type="Resource" uid="uid://chgxrqygy6jm0" path="res://Scripts/tresses/item_creator.tres" id="1_fbmea"]
+[ext_resource type="Script" path="res://Scripts/BaseOptions.cs" id="2_met04"]
+
+[resource]
+script = ExtResource("2_met04")
+text = "Item"
+karma = 0
+effects = PackedStringArray("item", "", "")
+item_info = ExtResource("1_fbmea")

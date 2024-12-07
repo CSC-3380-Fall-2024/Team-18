@@ -61,7 +61,6 @@ public partial class Battle : Control
 		
 		display_text($"A wild {enemy.name} appears.");
 		await ToSignal(this, nameof(TextClosed));
-		//GD.Print("Fuck1");
 		GetNode<Panel>("Actions").Show();
 	}
 	public async void OnItemUsed(string ItemEffect){
@@ -121,7 +120,7 @@ public partial class Battle : Control
 		}
 		else if (glbl.trapped == true)
 		{
-			display_text($"{enemy.name} attacks, falling for you trap, taking {enemy.damage} damage.");
+			display_text($"{enemy.name} attacks, falling for your trap, taking {enemy.damage} damage.");
 			await ToSignal(this, nameof(TextClosed));
 			current_enemy_health -= enemy.damage;
 			glbl.trapped = false;
@@ -167,7 +166,6 @@ public partial class Battle : Control
 			display_text("You Win.");
 			enemy.defeated = true;
 			await ToSignal(this, nameof(TextClosed));
-			GetParent().QueueFree();
 			glbl.karma -= 500;
 			glbl.isBattling = false; 
 			player.EnableMovement = true;

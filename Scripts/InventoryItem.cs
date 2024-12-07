@@ -85,7 +85,7 @@ public partial class InventoryItem : Node2D
 			{ "equip_effect", equip_effect }
 		};
 		
-		if(glbl.player_node != null){
+		if(glbl.player_body != null){
 			bool success = glbl.AddItem(item);
 			if(success)
 			{

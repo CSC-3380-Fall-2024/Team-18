@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://cquthuncq2ji0"]
+
+[ext_resource type="FontFile" uid="uid://bi04iecmbt37l" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="1_ivjw8"]
+[ext_resource type="Script" path="res://Scripts/DialogueScene.cs" id="1_w5p5w"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w5p5w")
+
+[node name="NPCDialogue" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -225.0
+offset_top = 110.0
+offset_right = -15.0
+offset_bottom = 220.0
+color = Color(0, 0, 0, 1)
+
+[node name="NPCDialogue_Inner" type="ColorRect" parent="NPCDialogue"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 205.0
+offset_bottom = 105.0
+
+[node name="NPCDialogue_Text" type="Label" parent="NPCDialogue/NPCDialogue_Inner"]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_ivjw8")
+text = "TEXT WOW WOW!!!!"
+
+[node name="NPCDialogue_Options" type="GridContainer" parent="NPCDialogue"]
+layout_mode = 0
+offset_left = 289.0
+offset_top = -120.0
+offset_right = 562.0
+offset_bottom = -14.0
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 60

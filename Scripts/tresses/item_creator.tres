@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemCreator" load_steps=3 format=3 uid="uid://chgxrqygy6jm0"]
+
+[ext_resource type="Texture2D" uid="uid://ddv6mxuadlcvr" path="res://Assets/Icons/icon23.png" id="1_y1foa"]
+[ext_resource type="Script" path="res://Scripts/ItemCreator.cs" id="2_oi77w"]
+
+[resource]
+script = ExtResource("2_oi77w")
+quantity = 1
+item_type = "4"
+item_name = "gilbert"
+item_texture = ExtResource("1_y1foa")
+item_price = 100
+item_effect = "traps"
+equip_effect = ""
