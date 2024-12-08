@@ -11,12 +11,12 @@ size = Vector2(34, 31)
 [node name="item_door" type="Node2D"]
 script = ExtResource("1_txiiu")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 position = Vector2(-1.19209e-06, -0.124999)
 scale = Vector2(0.15625, 0.158203)
 texture = ExtResource("2_s3wjk")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="StaticBody2D"]
 
@@ -26,6 +26,15 @@ shape = SubResource("RectangleShape2D_av6kh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_xbavb")
+
+[node name="KeyReq" type="CanvasLayer" parent="."]
+
+[node name="DoorLabel" type="Label" parent="KeyReq"]
+offset_left = 557.0
+offset_top = 268.0
+offset_right = 597.0
+offset_bottom = 291.0
+text = "pp"
 
 [connection signal="body_entered" from="StaticBody2D/Area2D" to="." method="OnArea2DBodyEntered"]
 [connection signal="body_exited" from="StaticBody2D/Area2D" to="." method="OnArea2DBodyExited"]
