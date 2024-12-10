@@ -3,7 +3,7 @@ CS 3380 GROUP 18 PROJECT README
 
     The game was made in Godot 4.3 with C# and .NET support.
 
-    All Scene, Node, and usage of Godot resources can be found by opening the 'project.godot' file in an installation of Godot 4.3 with .NET support.
+    All Scene, Node, and usage of Godot resources can be found by opening the 'project.godot' file.
 
     The game should be runnable with the 'Funny Basketball Game.exe' file.
 
