@@ -40,18 +40,25 @@ public partial class ItemDoor : Node2D
 		//}
 	//}
 
-	public void OnArea2DBodyEntered(Node2D body)
+public void OnArea2DBodyEntered(Node2D body)
 	{
-		if(body.IsInGroup("Player") && body is Player player)
+	if (body.IsInGroup("Player") && body is Player player)
+	{
+		player_in_range = true;
+
+		if (glbl.door == false)
 		{
-			GD.Print("yes");
-			player_in_range = true;
-			player.interact_text.Text = "Press O to open.";
-			player.interact_ui.Visible = true;
-			
+			player.interact_text.Text = "NEED KEY TO OPEN DOOR.";
 		}
-		
+		else
+		{
+			player.interact_text.Text = "Press O to Open Door.";
+		}
+
+		player.interact_ui.Visible = true;
+		GD.Print("yes");
 	}
+}
 
 	public void OnArea2DBodyExited(Node2D body)
 	{
