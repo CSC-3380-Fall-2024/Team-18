@@ -9,7 +9,12 @@ CS 3380 GROUP 18 PROJECT README
 
     All assets and scripts can be viewed within the Godot project, or using an editor of your choice.
 
+    **MAKE SURE YOU HAVE THE GODOT EDITOR INSTALLED BEFORE OPENING THE PROJECT FILE. ** This does not apply to the .exe file.
+    Download can be found at: https://godotengine.org/download/windows/ for windows.
+    Make sure you select "Godot Engine - .NET" to properly view the project. Download will give you a zip file; extract the zip file and you have the editor.
+
     **THE GODOT EDITOR REQUIRES .NET 8.0 OR ABOVE TO WORK PROPERLY. MAKE SURE YOU HAVE THIS INSTALLED BEFORE OPENING THE EDITOR. ** This does not apply to the .exe file.
+    Download can be found at: https://dotnet.microsoft.com/en-us/download. Download and follow the installer instructions before starting the project file.
 
     Controls:
     WASD - Move around
