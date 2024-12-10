@@ -28,4 +28,4 @@ CS 3380 GROUP 18 PROJECT README
 
     ** GAME IS ENDED BY OPENING DOOR AT THE BOTTOM OF MAP. DOORS ARE DENOTED BY THE GODOT LOGO. ENDING DETERMINED BY KARMA AND BATTLE (DROPS KARMA) IS STARTED BY SELECTING THE BATTLE OPTION WHILE TALKING TO THE NPC**
 
-    DIALOGUE WIP
+    Note: the NPC would normally disappear when you defeat them in a battle, but to make it easier to test the features we've left that out.
