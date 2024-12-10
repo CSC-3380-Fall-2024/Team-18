@@ -36,7 +36,7 @@ public partial class ShopVendor : Node2D
 		//checks for the player specifically
 		if(body.IsInGroup("Player") && body is Player player)
 		{
-			player.player_in_range = true;
+			player.shop_openable = true;
 			player.interact_text.Text = "Press F to Shop.";
 			player.interact_ui.Visible = true;
 		}
@@ -45,7 +45,7 @@ public partial class ShopVendor : Node2D
 	{
 		if(body.IsInGroup("Player") && body is Player player)
 		{
-			player.player_in_range = false;
+			player.shop_openable = false;
 			player.interact_ui.Visible = false;
 		}
 	}

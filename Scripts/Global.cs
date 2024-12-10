@@ -22,7 +22,8 @@ public partial class Global : Node
 	//Signal library; uses the CustomSignals script.
 	public CustomSignals custom_signals;
 	//The player. Starts as null, and refers to the player via method when the game starts to run.
-	 public CharacterBody2D player_node = null;
+	 public CharacterBody2D player_body = null;
+	 public Player player = null;
 	
 	//Exportable Battle Stats
 	public int health = 50;
@@ -147,9 +148,10 @@ public partial class Global : Node
 	Params:
 	CharacterBody2D player: The player character. Cannot be null or reference anything other than the player character.
 	*/
-		public void SetPlayerReference(CharacterBody2D player)
+		public void SetPlayerReference(CharacterBody2D playerbody, Player player_node)
 		{
-			player_node = player;
+			player_body = playerbody;
+			player = player_node;
 		}
 	/*
 	Summary:

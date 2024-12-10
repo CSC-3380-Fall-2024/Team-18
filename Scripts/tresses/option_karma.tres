@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BaseOptions" load_steps=2 format=3 uid="uid://oagddfheo75"]
+
+[ext_resource type="Script" path="res://Scripts/BaseOptions.cs" id="1_8tyq3"]
+
+[resource]
+script = ExtResource("1_8tyq3")
+text = "Karma"
+karma = 500
+effects = PackedStringArray("karma", "", "")

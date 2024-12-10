@@ -9,7 +9,10 @@ public partial class Npc: CharacterBody2D{
 	
 	bool player_in_range = false;
 	[Export] public CanvasLayer dialoguebox;
+
+	Vector2 position_offset = new Vector2(20, -100);
 	public Global glbl;
+	public Player player_reference;
 
 	//[Export] public CanvasLayer Presstalk;
 	
@@ -19,6 +22,7 @@ public partial class Npc: CharacterBody2D{
 			//Presstalk = GetNode<CanvasLayer>("Presstalk");
 			char_anim.Play("idle");
 			glbl = GetNode<Global>("/root/Global");
+			glbl.custom_signals.OnDialogueOptionPressed += OnDialogueOptionPressed;
 			//dialoguebox.Visible = false;
 			
 			//Presstalk.Visible = false;
@@ -30,8 +34,18 @@ public partial class Npc: CharacterBody2D{
 	public override void _Process(double delta){
 		if (player_in_range && Input.IsActionJustPressed("talk"))
 		{
+			player_reference.EnableMovement = false;
+			player_reference.Presstalk.Visible = false;
+
 			GD.Print("hello for now");
-			Talk();
+			BaseDialogue test_dialogue = GD.Load<BaseDialogue>("res://Scripts/tresses/test_dialogue.tres");
+			PackedScene dialogue_scene = GD.Load<PackedScene>("res://Scenes/dialogue_scene.tscn");
+			DialogueScene dialogue_test = dialogue_scene.Instantiate<DialogueScene>();
+
+			dialogue_test.dialogue = test_dialogue;
+			AddChild(dialogue_test);
+			dialogue_test.GlobalPosition = player_reference.GlobalPosition + position_offset;
+			GD.Print(dialogue_test.GlobalPosition);
 		}
 	}
 
@@ -46,6 +60,7 @@ public partial class Npc: CharacterBody2D{
 			player_in_range = true;
 			GD.Print("Player in Range?", player_in_range);
 			player.Presstalk.Visible = true;
+			player_reference = player;
 		}
 		//GD.Print("Body Entered Type: ", body.GetType());
 	}
@@ -59,28 +74,6 @@ public partial class Npc: CharacterBody2D{
 			player_in_range = false;
 			player.Presstalk.Visible = false;
 			dialoguebox.Visible = false;
-			
-			
-			
-			
-			//Karma and Battle happen here
-			player.EnableMovement = false;
-			glbl.isBattling = true;
-			glbl.karma -= 200;
-			
-			//GetTree().Paused = !GetTree().Paused;
-			
-			BaseEnemy test_knight = GD.Load<BaseEnemy>("res://Scripts/test_knight.tres");
-			
-			PackedScene battleScene = GD.Load<PackedScene>("res://Scenes/battle.tscn");
-			Battle BattleTest = battleScene.Instantiate<Battle>();
-			
-			BattleTest.enemy = test_knight;
-			BattleTest.player = player;
-			
-			
-			//GD.Print("yay");
-			AddChild(BattleTest);
 		}
 		//GD.Print("Body Entered Type: ", body.GetType());
 	}
@@ -105,5 +98,11 @@ public partial class Npc: CharacterBody2D{
 		GD.Print("Enter.");
 			
 
+	}
+	public void OnDialogueOptionPressed(){
+		if (glbl.isBattling == false){
+		player_reference.EnableMovement = true;
+		player_reference.Presstalk.Visible = true;
+		}
 	}
 }
