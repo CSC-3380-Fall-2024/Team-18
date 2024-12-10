@@ -34,8 +34,9 @@ theme_override_fonts/font = ExtResource("2_0db6h")
 text = "Test Text"
 
 [node name="Option_Button" type="Button" parent="Option_Border/Option_Background"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_right = 101.0
+offset_bottom = 53.0
 
 [connection signal="pressed" from="Option_Border/Option_Background/Option_Button" to="." method="OnOptionButtonPressed"]
