@@ -14,4 +14,7 @@ public partial class CustomSignals : Node
 	// Signal that sends Item Used's Name
 	[Signal]
 	public delegate void OnItemUsedEventHandler(string ItemEffect);
+ 	// Signal that tells when the player has stopped interacting with an NPC.
+  	[Signal]
+	public delegate void OnDialogueOptionPressedEventHandler();
 }
