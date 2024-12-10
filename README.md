@@ -15,10 +15,11 @@ CS 3380 GROUP 18 PROJECT README
     I - Open Inventory
         Inventory controlled with mouse
     K - Open Karma Menu
-    O - Opens Door if Key has been used.
+    O - Opens Door
     F - Opens Shop
-    G - Talks to NPC (WIP)
+    G - Talks to NPC
+    Every door needs a key. To open a door, get a key item and use it in the inventory, then open the door. Each key can only be used to open one door.
 
-    ** GAME IS ENDED BY OPENING DOOR AT THE BOTTOM OF MAP. DOORS ARE DENOTED BY THE GODOT LOGO. ENDING DETERMINED BY KARMA AND BATTLE (DROPS KARMA) IS STARTED BY WALKING AWAY FROM THE NPC CURRENTLY**
+    ** GAME IS ENDED BY OPENING DOOR AT THE BOTTOM OF MAP. DOORS ARE DENOTED BY THE GODOT LOGO. ENDING DETERMINED BY KARMA AND BATTLE (DROPS KARMA) IS STARTED BY SELECTING THE BATTLE OPTION WHILE TALKING TO THE NPC**
 
     DIALOGUE WIP
