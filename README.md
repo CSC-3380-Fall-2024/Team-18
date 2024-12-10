@@ -9,6 +9,7 @@ CS 3380 GROUP 18 PROJECT README
 
     All assets and scripts can be viewed within the Godot project, or using an editor of your choice.
 
+    **THE GODOT EDITOR REQUIRES .NET 8.0 OR ABOVE TO WORK PROPERLY. MAKE SURE YOU HAVE THIS INSTALLED BEFORE OPENING THE EDITOR. ** This does not apply to the .exe file.
 
     Controls:
     WASD - Move around
